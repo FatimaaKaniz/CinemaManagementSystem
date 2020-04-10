@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="294.0" prefWidth="439.0" style="-fx-background-color: #e6f9ff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.view.FXMLMainSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="294.0" prefWidth="439.0" style="-fx-background-color: #e6f9ff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.view.FXMLMainSceneController">
    <children>
       <Label layoutX="51.0" layoutY="96.0" text="Enter your credentials to continue" textAlignment="CENTER">
          <font>
@@ -35,5 +35,10 @@
             <Image url="@../Imges/coollogo_com-115371259.png" />
          </image>
       </ImageView>
+      <Label fx:id="noAccountButton" layoutX="51.0" layoutY="252.0" onMouseClicked="#NoAccountButtonCicked" style="-fx-text-fill: blue;" text="Don't have Accout">
+         <font>
+            <Font name="Times New Roman" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

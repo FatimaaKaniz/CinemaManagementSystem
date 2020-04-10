@@ -1,12 +1,17 @@
 package hu.unideb.inf.view;
 
+import hu.unideb.inf.MainApp;
+import java.io.IOException;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class FXMLMainSceneController {
 
@@ -40,6 +45,17 @@ public class FXMLMainSceneController {
         });
     }
 
+    @FXML
+    void NoAccountButtonCicked(MouseEvent evnt) throws IOException{
+           FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLSignUpScene.fxml"));
+           Stage stage = new Stage();
+           stage.setTitle("Sign Up Window");
+           stage.setScene(new Scene(loader.load()));
+           stage.setOnCloseRequest(e -> Exit());
+           stage.show();
+           
+
+    }
     @FXML
     void loginButtonClicked(MouseEvent event) {
            if(isValidated()){ 
