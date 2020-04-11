@@ -1,20 +1,34 @@
 package hu.unideb.inf.view;
 
+import hu.unideb.inf.MainApp;
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 
-public class FXMLSignUpSceneController {
+public class FXMLSignUpSceneController implements Initializable{
 
+    private ResultSet rs=null;
+    private PreparedStatement pst =null;
     @FXML
     private ComboBox<String> genderComboBox;
     
@@ -41,7 +55,7 @@ public class FXMLSignUpSceneController {
 
     @FXML
     void ExitButtonClicked(MouseEvent event) {
-          FXMLMainSceneController.Exit();
+          MainProjectController.Exit();
     }
 
     
@@ -121,21 +135,64 @@ public class FXMLSignUpSceneController {
         return true;    
     }
     @FXML
-    void signupButtonClicked(MouseEvent event) {
+    void signupButtonClicked(MouseEvent event) throws IOException, SQLException {
         if(isValidated()){
+            String sql = "INSERT INTO Customers (firstName ,lastName ,email, gender ,username ,password) VALUES (?,?,?,?,?,?)";
+       Connection conn=null;
+       try
+       {
+           conn = MainApp.ConnectToDb();
+           pst = conn.prepareStatement(sql);
+           pst.setString(1, firstNameText.getText().trim());
+           pst.setString(2, lastNameText.getText().trim());
+           pst.setString(3, emailText.getText().trim());
+           pst.setInt(4, genderComboBox.getSelectionModel().getSelectedIndex());
+           pst.setString(5, userNameText.getText().trim());
+           pst.setString(6, passwordText.getText().trim());
+           
+           pst.executeUpdate();
+           Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+           alert.setTitle("Confirmatioon");
+           alert.setContentText("Customer Resgitered");
+           alert.show();
+           
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLMainScene.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Login Window");
+            stage.setScene(new Scene(loader.load()));
+            stage.setOnCloseRequest(e -> MainProjectController.Exit());
+            Stage old_win=(Stage)signUp.getScene().getWindow();
+            stage.show();
+            old_win.close();
+
+       }
+       catch(SQLException e){
+           Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Something Went Wrong. Sorry!!!");
             
+            System.out.println(e);
+            alert.show();
+            
+       }
+       finally{
+           if(conn !=null)conn.close();
+       }
+
         }
     }
     
-   @FXML
-    void initialize() {
-        PopulateComboBoxes();
-    }
+  
     
     public void PopulateComboBoxes() {
         ObservableList<String> list= FXCollections.observableArrayList("Select Gender","Male","Female","Non-Specified");
         genderComboBox.setItems(list);
         genderComboBox.getSelectionModel().select(0);
         }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        PopulateComboBoxes();
+    }
 
 }

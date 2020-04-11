@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.SubScene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="391.0" prefWidth="722.0" style="-fx-background-color: #e6f9ff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.view.FXMLDashboardSceneController">
+   <children>
+      <SubScene height="95.0" layoutX="372.0" layoutY="38.0" width="330.0">
+        <root>
+          <Region />
+        </root>
+      </SubScene>
+      <Label fx:id="custName" alignment="CENTER" layoutX="378.0" layoutY="80.0" prefHeight="21.0" prefWidth="314.0" text="REGISTER AN ACCOUNT" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS">
+         <font>
+            <Font name="Times New Roman" size="18.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="78.0" fitWidth="437.0" layoutX="14.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Imges/coollogo_com-115371259.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="381.0" layoutY="41.0" prefHeight="30.0" prefWidth="314.0" text="USER INFOMATION" textAlignment="CENTER">
+         <font>
+            <Font name="Times New Roman" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="custEmail" alignment="CENTER" layoutX="378.0" layoutY="103.0" prefHeight="21.0" prefWidth="314.0" text="REGISTER AN ACCOUNT" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS">
+         <font>
+            <Font name="Times New Roman" size="18.0" />
+         </font>
+      </Label>
+      <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="722.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="exitButton" mnemonicParsing="false" onAction="#ExitClicked" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem fx:id="aboutButton" mnemonicParsing="false" onAction="#AboutClicked" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <TableView fx:id="movieInfoTable" accessibleRole="IMAGE_VIEW" layoutX="82.0" layoutY="151.0" prefHeight="218.0" prefWidth="577.0">
+        <columns>
+          <TableColumn id="SNo" fx:id="SNo" prefWidth="38.0" text="S.No" />
+          <TableColumn id="movieName" fx:id="movieName" prefWidth="179.0" text="Movie Name" />
+            <TableColumn id="producerName" fx:id="producerName" prefWidth="179.0" text="Producer Name" />
+            <TableColumn id="Description" fx:id="Description" prefWidth="179.0" text="Description" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

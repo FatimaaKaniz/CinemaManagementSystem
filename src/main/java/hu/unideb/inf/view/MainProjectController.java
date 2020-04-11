@@ -5,6 +5,9 @@
  */
 package hu.unideb.inf.view;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+
 /**
  *
  * @author girgi
@@ -14,4 +17,16 @@ public class MainProjectController {
       String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
       return email.matches(regex);
    }
+    public  static void Exit() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Current project is in progress");
+        alert.setContentText("Exit?");
+        alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+        alert.showAndWait().ifPresent(type -> {
+            if (type == ButtonType.YES) {
+                System.exit(0);
+            } else{
+            }
+        });
+    }
 }

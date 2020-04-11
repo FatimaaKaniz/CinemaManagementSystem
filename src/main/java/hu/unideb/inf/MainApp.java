@@ -1,13 +1,36 @@
 package hu.unideb.inf;
 
-import hu.unideb.inf.view.FXMLMainSceneController;
+import hu.unideb.inf.view.*;
+import java.io.File;
+import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class MainApp extends Application {
+
+    
+    public static Connection  ConnectToDb() throws SQLException {
+        Connection conn = null;
+      try {
+            Class.forName("org.sqlite.JDBC");
+            String dbURL = "jdbc:sqlite:CinemaMS.db";
+            File file = new File("cinemaMS.db");
+            System.out.println(file.getAbsoluteFile());
+             conn= DriverManager.getConnection(dbURL);
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            ex.printStackTrace();
+        }  
+      return conn;
+       
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -15,7 +38,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(loader.load());
     
         stage.setTitle("Login Window");
-        stage.setOnCloseRequest(e -> FXMLMainSceneController.Exit());
+        stage.setOnCloseRequest(e -> MainProjectController.Exit());
         
         stage.setScene(scene);
        
@@ -31,7 +54,9 @@ public class MainApp extends Application {
      *
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException, IOException {
+        
+        ConnectToDb();
         launch(args);
     }
 
