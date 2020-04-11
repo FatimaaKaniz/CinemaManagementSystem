@@ -148,7 +148,15 @@ public class FXMLSignUpSceneController implements Initializable{
            pst.setString(3, emailText.getText().trim());
            pst.setInt(4, genderComboBox.getSelectionModel().getSelectedIndex());
            pst.setString(5, userNameText.getText().trim());
-           pst.setString(6, passwordText.getText().trim());
+           String EncryptedPass = MainProjectController.cryptWithMD5(passwordText.getText().trim());
+           if (EncryptedPass==null){
+               Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Error");
+                alert.setContentText("Sorry, There's some securoty problem in the project\nPlease Try Again Later");
+                alert.show();
+                return;
+           }
+           pst.setString(6, EncryptedPass);
            
            pst.executeUpdate();
            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

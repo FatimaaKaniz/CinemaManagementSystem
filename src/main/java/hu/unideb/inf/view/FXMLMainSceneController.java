@@ -74,12 +74,20 @@ public class FXMLMainSceneController implements Initializable {
                 conn = MainApp.ConnectToDb();
                 pst = conn.prepareStatement(sql);
                 pst.setString(1, username);
-                pst.setString(2, password);
+                String EncryptedPassword = MainProjectController.cryptWithMD5(password);
+                if (EncryptedPassword==null){
+               Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Error");
+                alert.setContentText("Sorry, There's some securoty problem in the project\nPlease Try Again Later");
+                alert.show();
+                return;
+           }
+                pst.setString(2, EncryptedPassword);
                 rs = pst.executeQuery();
                 if (rs.next()) {
                     Customers loggedInCust = new Customers(rs.getString("firstName"),
                             rs.getString("lastName"), rs.getString("email"),
-                            rs.getInt("gender"), username, password);
+                            rs.getInt("gender"), username, EncryptedPassword);
 
                     FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLDashboardScene.fxml"));
                     Stage stage = new Stage();
