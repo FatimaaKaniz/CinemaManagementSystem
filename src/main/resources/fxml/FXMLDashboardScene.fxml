@@ -54,7 +54,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TableView fx:id="movieInfoTable" accessibleRole="IMAGE_VIEW" layoutX="82.0" layoutY="151.0" prefHeight="218.0" prefWidth="577.0">
+      <TableView fx:id="movieInfoTable" accessibleRole="IMAGE_VIEW" layoutX="82.0" layoutY="151.0" onMouseClicked="#movieInfoTableMouseClicked" prefHeight="218.0" prefWidth="577.0">
         <columns>
           <TableColumn id="SNo" fx:id="SNo" prefWidth="38.0" text="S.No" />
           <TableColumn id="movieName" fx:id="movieName" prefWidth="179.0" text="Movie Name" />
