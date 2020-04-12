@@ -51,6 +51,8 @@ public class FXMLDashboardSceneController implements Initializable {
 
     }
 
+    @FXML
+    private MenuItem logoutButton;
     @FXML // fx:id="exitButton"
     private MenuItem exitButton; // Value injected by FXMLLoader
 
@@ -98,16 +100,28 @@ public class FXMLDashboardSceneController implements Initializable {
 
  
     @FXML
+    void logOutClicked(ActionEvent event) throws IOException {
+        Stage thisStage = (Stage) priceText.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLMainScene.fxml"));
+        Stage stage = new Stage();
+        stage.setTitle("Login Window");
+        stage.setScene(new Scene(loader.load()));
+        thisStage.close();
+        stage.show();
+
+    }
+
+    @FXML
     void movieInfoTableMouseClicked(MouseEvent event) throws IOException {
-        
-        if ( event.getClickCount() == 2 && movieInfoTable.getItems().size() > 0) {
+
+        if (event.getClickCount() == 2 && movieInfoTable.getItems().size() > 0) {
             System.out.println("hassan");
             Movie selectedMovie = movieInfoTable.getSelectionModel().getSelectedItem();
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLMovieInfoScene.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Movie Info");
             stage.setScene(new Scene(loader.load()));
-            
+
             FXMLMovieInfoSceneController movieInfoScreen = loader.getController();
             //movieInfoScreen.setPreviousWindow(movieInfoTable.getScene().getWindow());
             movieInfoScreen.setMovieId(selectedMovie);
@@ -164,7 +178,7 @@ public class FXMLDashboardSceneController implements Initializable {
             while (rs.next()) {
                 // System.out.println(rs.);
                 Movie m = new Movie(rs.getInt(1), rs.getString(2),
-                        rs.getString(3), rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7));
+                        rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7));
                 MoviesInfo.add(m);
             }
 
