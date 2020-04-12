@@ -28,7 +28,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
@@ -39,20 +38,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Pair;
 
 public class FXMLDashboardSceneController implements Initializable {
 
-   
-
     private Customers m = new Customers();
 
-    private static boolean isOpen=false;
-
-    public static void setIsOpen(boolean isOpen) {
-        FXMLDashboardSceneController.isOpen = isOpen;
-    }
-    
     public void setModel(Customers model) {
         this.m = model;
         custName.setText(m.getName());
@@ -93,34 +83,31 @@ public class FXMLDashboardSceneController implements Initializable {
     @FXML
     void movieInfoTableMouseClicked(MouseEvent event) throws IOException {
         
-        if ( event.getClickCount() == 2 && movieInfoTable.getItems().size() > 0 && !isOpen) {
-            isOpen=true;
+        if ( event.getClickCount() == 2 && movieInfoTable.getItems().size() > 0) {
+            System.out.println("hassan");
             Movie selectedMovie = movieInfoTable.getSelectionModel().getSelectedItem();
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLMovieInfoScene.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Movie Info");
             stage.setScene(new Scene(loader.load()));
             
-            
             FXMLMovieInfoSceneController movieInfoScreen = loader.getController();
-
+            //movieInfoScreen.setPreviousWindow(movieInfoTable.getScene().getWindow());
             movieInfoScreen.setMovieId(selectedMovie);
-            movieInfoScreen.setPreviousWindow(movieInfoTable.getScene().getWindow());
-            Stage thisWIndow = (Stage)movieInfoTable.getScene().getWindow();
-            thisWIndow.hide();         
+            //Stage thisWIndow = (Stage)movieInfoTable.getScene().getWindow();
+            //thisWIndow.hide();
             stage.show();
-            
-           
 
         }
     }
 
     @FXML
     void AboutClicked(ActionEvent event) {
-        MainProjectController.About();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("About Cinepax");
+        alert.setContentText("Cinepx is good");
+        alert.show();
     }
-
-    
 
     @FXML
     void ExitClicked(ActionEvent event) {

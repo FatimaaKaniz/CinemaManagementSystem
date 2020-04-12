@@ -151,7 +151,7 @@ public class FXMLSignUpSceneController implements Initializable{
            pst.setString(6, passwordText.getText().trim());
            
            pst.executeUpdate();
-           Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+           Alert alert = new Alert(Alert.AlertType.INFORMATION);
            alert.setTitle("Confirmatioon");
            alert.setContentText("Customer Resgitered");
            alert.show();
@@ -169,9 +169,8 @@ public class FXMLSignUpSceneController implements Initializable{
        catch(SQLException e){
            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setContentText("Something Went Wrong. Sorry!!!");
-            
-            System.out.println(e);
+            alert.setContentText("Something Went Wrong. Sorry!!!");            
+            e.printStackTrace();
             alert.show();
             
        }

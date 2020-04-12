@@ -14,6 +14,7 @@ import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,7 +31,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -42,14 +42,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import javafx.util.Pair;
 
 public class FXMLMovieInfoSceneController implements Initializable {
 
-    private Stage prevWindow ;
-    public void setPreviousWindow(Window previousWIndow) {
-         this.prevWindow = (Stage)previousWIndow;
-    }
+    //private Stage prevWindow ;
+    //public void setPreviousWindow(Window previousWIndow) {
+      //   this.prevWindow = (Stage)previousWIndow;
+   // }
+    
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
 
@@ -95,31 +95,25 @@ public class FXMLMovieInfoSceneController implements Initializable {
 
     @FXML
     void AboutClicked(ActionEvent event) {
-            MainProjectController.About();
+        MainProjectController.About();
     }
 
     @FXML
     void ExitClicked(ActionEvent event) {
-          MainProjectController.Exit();
+        MainProjectController.Exit();
     }
 
     @FXML
     void movieBackMouseClicked(MouseEvent event) {
-        HideThisAndShowParent(); 
-    }
-
-    private void HideThisAndShowParent() {
         Stage thisWindow = (Stage) movieBack.getScene().getWindow();
         thisWindow.close();
-        prevWindow.show();
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        Stage thisWindow = (Stage) movieBack.getScene().getWindow(); 
-        thisWindow.setOnCloseRequest(e -> HideThisAndShowParent());
+       // Stage thisWindow = (Stage) movieBack.getScene().getWindow(); 
+        //thisWindow.setOnCloseRequest(e -> HideThisAndShowParent());
     }
-    
 
     private void PopulateDataIntoTableVIew() {
         ObservableList<MovieInfo> movieModel = null;
@@ -193,6 +187,10 @@ public class FXMLMovieInfoSceneController implements Initializable {
 
         return FXCollections.observableArrayList(MoviesInfo);
     }
-    
+    //private void HideThisAndShowParent() {
+     //   Stage thisWindow = (Stage) movieBack.getScene().getWindow();
+      //  thisWindow.close();
+       // prevWindow.show();
+    //}
 
 }
