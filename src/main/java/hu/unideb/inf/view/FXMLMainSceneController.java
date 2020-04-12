@@ -73,7 +73,16 @@ public class FXMLMainSceneController implements Initializable {
                 conn = MainApp.ConnectToDb();
                 pst = conn.prepareStatement(sql);
                 pst.setString(1, username);
-                pst.setString(2, password);
+                String EncryptedPass =MainProjectController.cryptWithMD5(password);
+                if(EncryptedPass==null){
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setContentText("Encryption Error");
+                    alert.show();
+                    return;
+                }
+                pst.setString(2, EncryptedPass);
+
                 rs = pst.executeQuery();
                 if (rs.next()) {
                     Customers loggedInCust = new Customers(rs.getString("firstName"),
