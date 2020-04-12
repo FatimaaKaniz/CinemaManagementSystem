@@ -14,7 +14,6 @@ import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,6 +30,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -41,9 +41,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.util.Pair;
 
 public class FXMLMovieInfoSceneController implements Initializable {
 
+    private Stage prevWindow ;
+    public void setPreviousWindow(Window previousWIndow) {
+         this.prevWindow = (Stage)previousWIndow;
+    }
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
 
@@ -89,23 +95,31 @@ public class FXMLMovieInfoSceneController implements Initializable {
 
     @FXML
     void AboutClicked(ActionEvent event) {
-
+            MainProjectController.About();
     }
 
     @FXML
     void ExitClicked(ActionEvent event) {
-
+          MainProjectController.Exit();
     }
 
     @FXML
     void movieBackMouseClicked(MouseEvent event) {
+        HideThisAndShowParent(); 
+    }
+
+    private void HideThisAndShowParent() {
         Stage thisWindow = (Stage) movieBack.getScene().getWindow();
         thisWindow.close();
+        prevWindow.show();
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        Stage thisWindow = (Stage) movieBack.getScene().getWindow(); 
+        thisWindow.setOnCloseRequest(e -> HideThisAndShowParent());
     }
+    
 
     private void PopulateDataIntoTableVIew() {
         ObservableList<MovieInfo> movieModel = null;
@@ -150,8 +164,13 @@ public class FXMLMovieInfoSceneController implements Initializable {
             pst.setInt(1, movie.getSNo());
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                DateFormat dateFormat = new SimpleDateFormat("hh:mm");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
                 Date d = (Date) dateFormat.parse(rs.getString(4));
+                Date now = new Date();
+                if(d.compareTo(now) <0){
+                    System.out.println(d);
+                    continue;
+                } 
                 MovieInfo m = new MovieInfo(rs.getInt(1), rs.getInt(2), rs.getInt(3),
                         d, movie.getSNo(), movie.getMovieName(),
                          movie.getProducerName(), movie.getDescription(), movie.getPrice(), movie.getImage(),
@@ -174,5 +193,6 @@ public class FXMLMovieInfoSceneController implements Initializable {
 
         return FXCollections.observableArrayList(MoviesInfo);
     }
+    
 
 }

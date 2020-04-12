@@ -34,7 +34,7 @@ public class MovieInfo extends Movie{
     }
 
     public String getMovieTimings() {
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
         return sdf.format(movieTimings);
     }
 

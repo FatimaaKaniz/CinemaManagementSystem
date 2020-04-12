@@ -17,6 +17,12 @@ public class MainProjectController {
       String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
       return email.matches(regex);
    }
+    public static void About() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("About Cinepax");
+        alert.setContentText("Cinepx is good");
+        alert.show();
+    }
     public  static void Exit() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Current project is in progress");
