@@ -3,6 +3,7 @@
  */
 package hu.unideb.inf.view;
 
+import com.sun.tools.javadoc.Main;
 import hu.unideb.inf.MainApp;
 import hu.unideb.inf.Model.Customers;
 import hu.unideb.inf.Model.Movie;
@@ -54,7 +55,7 @@ public class FXMLDashboardSceneController implements Initializable {
     @FXML
     private MenuItem logoutButton;
     @FXML // fx:id="exitButton"
-    private MenuItem exitButton; // Value injected by FXMLLoader
+    private MenuItem ExitButtton; // Value injected by FXMLLoader
 
     @FXML // fx:id="aboutButton"
     private MenuItem aboutButton; // Value injected by FXMLLoader
@@ -82,16 +83,16 @@ public class FXMLDashboardSceneController implements Initializable {
     @FXML // fx:id="priceText"
     private TextField priceText; // Value injected by FXMLLoader
 
-    @FXML //fx:id ="logoutButton"
-    private MenuItem logoutButton;
+    
     
     @FXML
     void logOutClicked(ActionEvent event) throws IOException {
-        Stage thisStage = (Stage) priceText.getScene().getWindow();
+        Stage thisStage = (Stage) movieInfoTable.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLMainScene.fxml"));
         Stage stage = new Stage();
         stage.setTitle("Login Window");
         stage.setScene(new Scene(loader.load()));
+        stage.setOnCloseRequest(e -> MainProjectController.Exit());
         thisStage.close();
         stage.show();
 
@@ -99,17 +100,7 @@ public class FXMLDashboardSceneController implements Initializable {
 
 
  
-    @FXML
-    void logOutClicked(ActionEvent event) throws IOException {
-        Stage thisStage = (Stage) priceText.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLMainScene.fxml"));
-        Stage stage = new Stage();
-        stage.setTitle("Login Window");
-        stage.setScene(new Scene(loader.load()));
-        thisStage.close();
-        stage.show();
-
-    }
+  
 
     @FXML
     void movieInfoTableMouseClicked(MouseEvent event) throws IOException {
