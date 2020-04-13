@@ -45,10 +45,10 @@ import javafx.stage.Window;
 
 public class FXMLMovieInfoSceneController implements Initializable {
 
-    //private Stage prevWindow ;
-    //public void setPreviousWindow(Window previousWIndow) {
-      //   this.prevWindow = (Stage)previousWIndow;
-   // }
+    private Stage prevWindow ;
+    public void setPreviousWindow(Window previousWIndow) {
+         this.prevWindow = (Stage)previousWIndow;
+   }
     
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -105,14 +105,12 @@ public class FXMLMovieInfoSceneController implements Initializable {
 
     @FXML
     void movieBackMouseClicked(MouseEvent event) {
-        Stage thisWindow = (Stage) movieBack.getScene().getWindow();
-        thisWindow.close();
+        HideThisAndShowParent();
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-       // Stage thisWindow = (Stage) movieBack.getScene().getWindow(); 
-        //thisWindow.setOnCloseRequest(e -> HideThisAndShowParent());
+      
     }
 
     private void PopulateDataIntoTableVIew() {
@@ -142,6 +140,8 @@ public class FXMLMovieInfoSceneController implements Initializable {
 
         imageVIewer.setImage(image);
         PopulateDataIntoTableVIew();
+          Stage thisWindow = (Stage) movieBack.getScene().getWindow(); 
+        thisWindow.setOnCloseRequest(e -> HideThisAndShowParent());
 
     }
     private List<MovieInfo> MoviesInfo = new LinkedList<>();
@@ -184,10 +184,10 @@ public class FXMLMovieInfoSceneController implements Initializable {
 
         return FXCollections.observableArrayList(MoviesInfo);
     }
-    //private void HideThisAndShowParent() {
-     //   Stage thisWindow = (Stage) movieBack.getScene().getWindow();
-      //  thisWindow.close();
-       // prevWindow.show();
-    //}
-
+    private void HideThisAndShowParent() {
+      Stage thisWindow = (Stage) movieBack.getScene().getWindow();
+       thisWindow.close();
+       prevWindow.setResizable(false);
+       prevWindow.show();
+    }
 }

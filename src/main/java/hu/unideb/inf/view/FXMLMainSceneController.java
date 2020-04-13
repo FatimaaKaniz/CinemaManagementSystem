@@ -50,9 +50,9 @@ public class FXMLMainSceneController implements Initializable {
         stage.setTitle("Sign Up Window");
         stage.setScene(new Scene(loader.load()));
 
-        stage.setOnCloseRequest(e -> BasicFucntions.Exit());
+        stage.setOnCloseRequest(BasicFucntions.confirmCloseEventHandler);   
         Stage old_win = (Stage) loginbutton.getScene().getWindow();
-
+stage.setResizable(false);
         stage.show();
         stage.toFront();
         old_win.close();
@@ -95,11 +95,12 @@ public class FXMLMainSceneController implements Initializable {
                     Stage stage = new Stage();
                     stage.setTitle("MoviesInfo");
                     stage.setScene(new Scene(fxmlFile.load()));
-                    stage.setOnCloseRequest(e -> BasicFucntions.Exit());
+                    stage.setOnCloseRequest(BasicFucntions.confirmCloseEventHandler);   
                     Stage thisWin = (Stage) loginbutton.getScene().getWindow();
                     FXMLDashboardSceneController dashboard = fxmlFile.getController();
 
                     dashboard.setModel(loggedInCust);
+                    stage.setResizable(false);
                     stage.show();
                     thisWin.close();
                 } else {

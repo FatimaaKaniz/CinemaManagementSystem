@@ -84,8 +84,9 @@ public class FXMLDashboardSceneController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("Login Window");
         stage.setScene(new Scene(loader.load()));
-        stage.setOnCloseRequest(e -> BasicFucntions.Exit());
+       stage.setOnCloseRequest(BasicFucntions.confirmCloseEventHandler);   
         thisStage.close();
+        stage.setResizable(false);
         stage.show();
 
     }
@@ -101,10 +102,11 @@ public class FXMLDashboardSceneController implements Initializable {
             stage.setScene(new Scene(loader.load()));
 
             FXMLMovieInfoSceneController movieInfoScreen = loader.getController();
-            //movieInfoScreen.setPreviousWindow(movieInfoTable.getScene().getWindow());
+            movieInfoScreen.setPreviousWindow(movieInfoTable.getScene().getWindow());
             movieInfoScreen.setMovie(selectedMovie);
-            //Stage thisWIndow = (Stage)movieInfoTable.getScene().getWindow();
-            //thisWIndow.hide();
+            Stage thisWIndow = (Stage)movieInfoTable.getScene().getWindow();
+            thisWIndow.hide();
+            stage.setResizable(false);
             stage.show();
 
         }

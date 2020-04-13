@@ -7,8 +7,10 @@ package hu.unideb.inf.view;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -37,7 +39,7 @@ public class BasicFucntions {
    }
    
     static boolean isEmailValid(String email) {
-        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"; //Regular Expresions
         return email.matches(regex);
     }
 
@@ -49,6 +51,16 @@ public class BasicFucntions {
         alert.show();
     }
 
+    public static EventHandler<WindowEvent> confirmCloseEventHandler = event -> {
+        Alert alert = new Alert(
+                Alert.AlertType.CONFIRMATION,
+                "Are you sure you want to exit?"
+        );
+        alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+        if (!ButtonType.YES.equals(alert.showAndWait().get())) {
+            event.consume();
+        }
+    };
     public static void Exit() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Current project is in progress");

@@ -35,8 +35,9 @@ public class MainApp extends Application {
         FXMLLoader fxmlFIle = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLMainScene.fxml"));
         Scene scene = new Scene(fxmlFIle.load());
         stage.setTitle("Login Window");
-        stage.setOnCloseRequest(e -> BasicFucntions.Exit());        
+        stage.setOnCloseRequest(BasicFucntions.confirmCloseEventHandler);        
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 

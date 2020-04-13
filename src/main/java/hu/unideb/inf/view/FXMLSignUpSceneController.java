@@ -173,14 +173,16 @@ public class FXMLSignUpSceneController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Confirmatioon");
                 alert.setContentText("Customer Resgitered");
+                
                 alert.show();
 
                 FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLMainScene.fxml"));
                 Stage stage = new Stage();
                 stage.setTitle("Login Window");
                 stage.setScene(new Scene(loader.load()));
-                stage.setOnCloseRequest(e -> BasicFucntions.Exit());
+            stage.setOnCloseRequest(BasicFucntions.confirmCloseEventHandler);   
                 Stage old_win = (Stage) signUp.getScene().getWindow();
+                stage.setResizable(false);
                 stage.show();
                 old_win.close();
 
