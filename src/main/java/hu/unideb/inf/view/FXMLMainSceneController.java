@@ -40,7 +40,7 @@ public class FXMLMainSceneController implements Initializable {
 
     @FXML
     void ExitButtonClicked(MouseEvent event) {
-        MainProjectController.Exit();
+        BasicFucntions.Exit();
     }
 
     @FXML
@@ -50,7 +50,7 @@ public class FXMLMainSceneController implements Initializable {
         stage.setTitle("Sign Up Window");
         stage.setScene(new Scene(loader.load()));
 
-        stage.setOnCloseRequest(e -> MainProjectController.Exit());
+        stage.setOnCloseRequest(e -> BasicFucntions.Exit());
         Stage old_win = (Stage) loginbutton.getScene().getWindow();
 
         stage.show();
@@ -71,9 +71,11 @@ public class FXMLMainSceneController implements Initializable {
             Connection conn =null;
             try {
                 conn = MainApp.ConnectToDb();
+                
                 pst = conn.prepareStatement(sql);
                 pst.setString(1, username);
-                String EncryptedPass =MainProjectController.cryptWithMD5(password);
+               
+                String EncryptedPass =BasicFucntions.cryptWithMD5(password);
                 if(EncryptedPass==null){
                     Alert alert = new Alert(AlertType.ERROR);
                     alert.setTitle("Error");
@@ -89,17 +91,17 @@ public class FXMLMainSceneController implements Initializable {
                             rs.getString("lastName"), rs.getString("email"),
                             rs.getInt("gender"), username, password);
 
-                    FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLDashboardScene.fxml"));
+                    FXMLLoader fxmlFile = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLDashboardScene.fxml"));
                     Stage stage = new Stage();
                     stage.setTitle("MoviesInfo");
-                    stage.setScene(new Scene(loader.load()));
-                    stage.setOnCloseRequest(e -> MainProjectController.Exit());
-                    Stage old_win = (Stage) loginbutton.getScene().getWindow();
-                    FXMLDashboardSceneController dashboard = loader.getController();
+                    stage.setScene(new Scene(fxmlFile.load()));
+                    stage.setOnCloseRequest(e -> BasicFucntions.Exit());
+                    Stage thisWin = (Stage) loginbutton.getScene().getWindow();
+                    FXMLDashboardSceneController dashboard = fxmlFile.getController();
 
                     dashboard.setModel(loggedInCust);
                     stage.show();
-                    old_win.close();
+                    thisWin.close();
                 } else {
                     Alert alert = new Alert(AlertType.ERROR);
                     alert.setTitle("Autentication Failed");
@@ -135,8 +137,8 @@ public class FXMLMainSceneController implements Initializable {
             alert.setContentText("Username is required");
             alert.show();
             userNameText.requestFocus();
-            userNameText.setText("");
-
+            
+            
             return false;
         }
         if ("".equals(passwordText.getText().trim())) {
@@ -144,7 +146,7 @@ public class FXMLMainSceneController implements Initializable {
             alert.setTitle("Error");
             alert.setContentText("Password is required");
             alert.show();
-            passwordText.setText("");
+            
             passwordText.requestFocus();
 
             return false;
@@ -154,6 +156,10 @@ public class FXMLMainSceneController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        
 
+    }
+    @FXML
+    void initialize(){
     }
 }

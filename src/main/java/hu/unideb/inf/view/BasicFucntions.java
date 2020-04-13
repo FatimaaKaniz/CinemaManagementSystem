@@ -14,7 +14,7 @@ import javafx.scene.control.ButtonType;
  *
  * @author girgi
  */
-public class MainProjectController {
+public class BasicFucntions {
 
     private static MessageDigest md;
 
@@ -42,9 +42,10 @@ public class MainProjectController {
     }
 
     public static void About() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About Cinepax");
-        alert.setContentText("Cinepx is good");
+        String about = "Cinepax is Hungary's Favorite Cinema Chain having Presence in 9 cities, 12 cinema locations with 42 Screens across the country.";
+        alert.setContentText(about);
         alert.show();
     }
 

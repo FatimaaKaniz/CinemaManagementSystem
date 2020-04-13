@@ -88,19 +88,19 @@ public class FXMLMovieInfoSceneController implements Initializable {
 
     private Movie movie = new Movie();
 
-    public void setMovieId(Movie movie) throws FileNotFoundException {
+    public void setMovie(Movie movie) throws FileNotFoundException {
         this.movie = movie;
         initialize();
     }
 
     @FXML
     void AboutClicked(ActionEvent event) {
-        MainProjectController.About();
+        BasicFucntions.About();
     }
 
     @FXML
     void ExitClicked(ActionEvent event) {
-        MainProjectController.Exit();
+        BasicFucntions.Exit();
     }
 
     @FXML
@@ -135,7 +135,7 @@ public class FXMLMovieInfoSceneController implements Initializable {
 
     @FXML
     void initialize() throws FileNotFoundException {
-        priceText.setText("$ " + movie.getPrice());
+        priceText.setText("HUF " + movie.getPrice());
         descriptionLabel.setText(movie.getLongDescription());
         FileInputStream input = new FileInputStream(movie.getImage());
         Image image = new Image(input);
@@ -147,7 +147,8 @@ public class FXMLMovieInfoSceneController implements Initializable {
     private List<MovieInfo> MoviesInfo = new LinkedList<>();
 
     private ObservableList<MovieInfo> GetMoviesInfo() throws SQLException, ParseException {
-        String sql = "select serialNumber,TotalSeats,availableSeats,movieTimings from movieInfo where movieid =?";
+        String sql = "select serialNumber,TotalSeats,availableSeats,movieTimings from movieInfo where movieid =?"
+                + "and date(movieTimings) >= datetime('now')";
 
         PreparedStatement pst = null;
         Connection conn = null;
@@ -160,11 +161,7 @@ public class FXMLMovieInfoSceneController implements Initializable {
             while (rs.next()) {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
                 Date d = (Date) dateFormat.parse(rs.getString(4));
-                Date now = new Date();
-                if(d.compareTo(now) <0){
-                    System.out.println(d);
-                    continue;
-                } 
+                
                 MovieInfo m = new MovieInfo(rs.getInt(1), rs.getInt(2), rs.getInt(3),
                         d, movie.getSNo(), movie.getMovieName(),
                          movie.getProducerName(), movie.getDescription(), movie.getPrice(), movie.getImage(),
@@ -176,7 +173,7 @@ public class FXMLMovieInfoSceneController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setContentText("Something Went Wrong. Sorry!!!");
-            e.printStackTrace();
+           
             alert.showAndWait();
 
         } finally {

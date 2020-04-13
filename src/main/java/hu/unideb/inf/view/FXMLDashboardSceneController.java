@@ -3,7 +3,6 @@
  */
 package hu.unideb.inf.view;
 
-import com.sun.tools.javadoc.Main;
 import hu.unideb.inf.MainApp;
 import hu.unideb.inf.Model.Customers;
 import hu.unideb.inf.Model.Movie;
@@ -13,14 +12,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,9 +32,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class FXMLDashboardSceneController implements Initializable {
 
@@ -48,8 +42,6 @@ public class FXMLDashboardSceneController implements Initializable {
         this.m = model;
         custName.setText(m.getName());
         custEmail.setText(m.getEmail());
-        custEmail.setMinWidth(Region.USE_PREF_SIZE);
-
     }
 
     @FXML
@@ -92,21 +84,16 @@ public class FXMLDashboardSceneController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("Login Window");
         stage.setScene(new Scene(loader.load()));
-        stage.setOnCloseRequest(e -> MainProjectController.Exit());
+        stage.setOnCloseRequest(e -> BasicFucntions.Exit());
         thisStage.close();
         stage.show();
 
     }
 
-
- 
-  
-
     @FXML
     void movieInfoTableMouseClicked(MouseEvent event) throws IOException {
 
         if (event.getClickCount() == 2 && movieInfoTable.getItems().size() > 0) {
-            System.out.println("hassan");
             Movie selectedMovie = movieInfoTable.getSelectionModel().getSelectedItem();
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLMovieInfoScene.fxml"));
             Stage stage = new Stage();
@@ -115,7 +102,7 @@ public class FXMLDashboardSceneController implements Initializable {
 
             FXMLMovieInfoSceneController movieInfoScreen = loader.getController();
             //movieInfoScreen.setPreviousWindow(movieInfoTable.getScene().getWindow());
-            movieInfoScreen.setMovieId(selectedMovie);
+            movieInfoScreen.setMovie(selectedMovie);
             //Stage thisWIndow = (Stage)movieInfoTable.getScene().getWindow();
             //thisWIndow.hide();
             stage.show();
@@ -125,15 +112,12 @@ public class FXMLDashboardSceneController implements Initializable {
 
     @FXML
     void AboutClicked(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("About Cinepax");
-        alert.setContentText("Cinepx is good");
-        alert.show();
+       BasicFucntions.About();
     }
 
     @FXML
     void ExitClicked(ActionEvent event) {
-        MainProjectController.Exit();
+        BasicFucntions.Exit();
     }
 
     @Override
@@ -159,7 +143,7 @@ public class FXMLDashboardSceneController implements Initializable {
 
     private ObservableList<Movie> GetMoviesInfo() throws SQLException {
 
-        String sql = "select SNo,Name,'ProducerName',Description,Price,Image,LongDescription from movies";
+        String sql = "select SNo,Name,'ProducerName',Description,Price,Image,LongDescription from movies a inner join MovieInfo b where a.SNo = b.movieId and  date(b.movieTimings) >= datetime('now')";
         PreparedStatement pst;
         Connection conn = null;
         try {
@@ -167,7 +151,7 @@ public class FXMLDashboardSceneController implements Initializable {
             pst = conn.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                // System.out.println(rs.);
+               
                 Movie m = new Movie(rs.getInt(1), rs.getString(2),
                         rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7));
                 MoviesInfo.add(m);

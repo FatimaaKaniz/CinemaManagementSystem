@@ -10,8 +10,6 @@ package hu.unideb.inf.Model;
  * @author fatima
  */
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,7 +25,7 @@ public class Customers {
     private String username;
     private String password;
 
-    private StringProperty nameP = new SimpleStringProperty();
+    //private StringProperty nameP = new SimpleStringProperty();
     
      public String getName() {
         return FirstName+" "+LastName;
@@ -41,5 +39,7 @@ public class Customers {
         this.username = username;
         this.password = password;
     }
+    
+    
     
 }

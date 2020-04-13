@@ -35,7 +35,7 @@
             <Image url="@../Imges/coollogo_com-115371259.png" />
          </image>
       </ImageView>
-      <Label fx:id="noAccountButton" layoutX="51.0" layoutY="252.0" onMouseClicked="#NoAccountButtonCicked" style="-fx-text-fill: blue;" text="Don't have Accout">
+      <Label fx:id="noAccountButton" layoutX="51.0" layoutY="252.0" onMouseClicked="#NoAccountButtonCicked" style="-fx-text-fill: blue;" text="Don't have Account?">
          <font>
             <Font name="Times New Roman" size="18.0" />
          </font>

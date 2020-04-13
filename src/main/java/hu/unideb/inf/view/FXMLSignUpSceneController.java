@@ -55,7 +55,7 @@ public class FXMLSignUpSceneController implements Initializable {
 
     @FXML
     void ExitButtonClicked(MouseEvent event) {
-        MainProjectController.Exit();
+        BasicFucntions.Exit();
     }
 
     private boolean isValidated() throws SQLException {
@@ -86,7 +86,7 @@ public class FXMLSignUpSceneController implements Initializable {
             emailText.setText("");
 
             return false;
-        } else if (!MainProjectController.isEmailValid(emailText.getText().trim())) {
+        } else if (!BasicFucntions.isEmailValid(emailText.getText().trim())) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setContentText("Email Address is not valid");
@@ -159,7 +159,7 @@ public class FXMLSignUpSceneController implements Initializable {
                 pst.setInt(4, genderComboBox.getSelectionModel().getSelectedIndex());
                 pst.setString(5, userNameText.getText().trim());
                 pst.setString(5, userNameText.getText().trim());
-                String EncryptedPass = MainProjectController.cryptWithMD5(passwordText.getText().trim());
+                String EncryptedPass = BasicFucntions.cryptWithMD5(passwordText.getText().trim());
                 if (EncryptedPass == null) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
@@ -179,7 +179,7 @@ public class FXMLSignUpSceneController implements Initializable {
                 Stage stage = new Stage();
                 stage.setTitle("Login Window");
                 stage.setScene(new Scene(loader.load()));
-                stage.setOnCloseRequest(e -> MainProjectController.Exit());
+                stage.setOnCloseRequest(e -> BasicFucntions.Exit());
                 Stage old_win = (Stage) signUp.getScene().getWindow();
                 stage.show();
                 old_win.close();

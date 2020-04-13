@@ -21,8 +21,6 @@ public class MainApp extends Application {
       try {
             Class.forName("org.sqlite.JDBC");
             String dbURL = "jdbc:sqlite:CinemaMS.db";
-            File file = new File("cinemaMS.db");
-            System.out.println(file.getAbsoluteFile());
              conn= DriverManager.getConnection(dbURL);
             
         } catch (ClassNotFoundException | SQLException ex) {
@@ -34,15 +32,11 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLMainScene.fxml"));
-        Scene scene = new Scene(loader.load());
-    
+        FXMLLoader fxmlFIle = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLMainScene.fxml"));
+        Scene scene = new Scene(fxmlFIle.load());
         stage.setTitle("Login Window");
-        stage.setOnCloseRequest(e -> MainProjectController.Exit());
-        
+        stage.setOnCloseRequest(e -> BasicFucntions.Exit());        
         stage.setScene(scene);
-       
-        
         stage.show();
     }
 
