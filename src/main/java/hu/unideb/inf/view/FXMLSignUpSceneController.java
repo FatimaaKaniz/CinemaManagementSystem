@@ -27,6 +27,7 @@ import javafx.stage.Window;
 
 public class FXMLSignUpSceneController implements Initializable {
 
+    
     private ResultSet rs = null;
     private PreparedStatement pst = null;
     @FXML
@@ -53,6 +54,13 @@ public class FXMLSignUpSceneController implements Initializable {
     @FXML
     private TextField emailText;
 
+     @FXML
+    private Button backButton;
+
+      @FXML
+    void backButtonClicked(MouseEvent event) throws IOException {
+        ShowLoginScene();
+    }
     @FXML
     void ExitButtonClicked(MouseEvent event) {
         BasicFucntions.Exit();
@@ -176,15 +184,7 @@ public class FXMLSignUpSceneController implements Initializable {
                 
                 alert.show();
 
-                FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLMainScene.fxml"));
-                Stage stage = new Stage();
-                stage.setTitle("Login Window");
-                stage.setScene(new Scene(loader.load()));
-            stage.setOnCloseRequest(BasicFucntions.confirmCloseEventHandler);   
-                Stage old_win = (Stage) signUp.getScene().getWindow();
-                stage.setResizable(false);
-                stage.show();
-                old_win.close();
+                ShowLoginScene();
 
             } catch (SQLException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -200,6 +200,18 @@ public class FXMLSignUpSceneController implements Initializable {
             }
 
         }
+    }
+
+    private void ShowLoginScene() throws IOException {
+        FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLMainScene.fxml"));
+        Stage stage = new Stage();
+        stage.setTitle("Login Window");
+        stage.setScene(new Scene(loader.load()));
+        stage.setOnCloseRequest(BasicFucntions.confirmCloseEventHandler);
+        Stage old_win = (Stage) signUp.getScene().getWindow();
+        stage.setResizable(false);
+        stage.show();
+        old_win.close();
     }
 
     public void PopulateComboBoxes() {

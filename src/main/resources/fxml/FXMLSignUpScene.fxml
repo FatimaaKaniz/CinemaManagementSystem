@@ -82,5 +82,17 @@
             <Font name="Times New Roman" size="24.0" />
          </font>
       </Label>
+      <Button fx:id="backButton" alignment="CENTER" graphicTextGap="5.0" layoutX="50.0" layoutY="311.0" mnemonicParsing="false" onMouseClicked="#backButtonClicked" prefHeight="48.0" prefWidth="105.0" text="Back">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Icons/go-previous.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>
