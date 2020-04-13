@@ -52,7 +52,7 @@ public class FXMLMainSceneController implements Initializable {
 
         stage.setOnCloseRequest(BasicFucntions.confirmCloseEventHandler);   
         Stage old_win = (Stage) loginbutton.getScene().getWindow();
-stage.setResizable(false);
+        stage.setResizable(false);
         stage.show();
         stage.toFront();
         old_win.close();

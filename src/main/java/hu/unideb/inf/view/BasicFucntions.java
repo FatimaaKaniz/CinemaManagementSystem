@@ -7,6 +7,7 @@ package hu.unideb.inf.view;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

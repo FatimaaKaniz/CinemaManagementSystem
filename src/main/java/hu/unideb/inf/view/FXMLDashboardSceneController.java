@@ -72,8 +72,7 @@ public class FXMLDashboardSceneController implements Initializable {
     @FXML // fx:id="email"
     private Label custEmail; // Value injected by FXMLLoader
 
-    @FXML // fx:id="priceText"
-    private TextField priceText; // Value injected by FXMLLoader
+   
 
     
     
@@ -145,7 +144,9 @@ public class FXMLDashboardSceneController implements Initializable {
 
     private ObservableList<Movie> GetMoviesInfo() throws SQLException {
 
-        String sql = "select SNo,Name,'ProducerName',Description,Price,Image,LongDescription from movies a inner join MovieInfo b where a.SNo = b.movieId and  date(b.movieTimings) >= datetime('now')";
+        String sql = "select SNo,Name,'ProducerName',Description,Price,Image,LongDescription"
+                + " from movies a inner join MovieInfo b where a.SNo = b.movieId "
+                + "and  date(b.movieTimings) >= datetime('now')";
         PreparedStatement pst;
         Connection conn = null;
         try {

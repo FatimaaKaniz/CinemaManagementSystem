@@ -1,7 +1,7 @@
 package hu.unideb.inf;
 
 import hu.unideb.inf.view.*;
-import java.io.File;
+
 import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -9,8 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 
 public class MainApp extends Application {
@@ -35,7 +34,8 @@ public class MainApp extends Application {
         FXMLLoader fxmlFIle = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLMainScene.fxml"));
         Scene scene = new Scene(fxmlFIle.load());
         stage.setTitle("Login Window");
-        stage.setOnCloseRequest(BasicFucntions.confirmCloseEventHandler);        
+        stage.setOnCloseRequest(BasicFucntions.confirmCloseEventHandler);  
+
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
