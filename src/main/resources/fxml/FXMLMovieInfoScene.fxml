@@ -53,10 +53,17 @@
             <Font name="Ubuntu Light" size="18.0" />
          </font>
       </Text>
-      <Button fx:id="movieBack" layoutX="342.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#movieBackMouseClicked" prefHeight="40.0" prefWidth="69.0" text="Back">
+      <Button fx:id="movieBack" layoutX="315.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#movieBackMouseClicked" prefHeight="40.0" prefWidth="96.0" text="Back">
          <font>
             <Font size="18.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Icons/go-previous.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
       <Label layoutX="534.0" layoutY="134.0" text="Price ">
          <font>

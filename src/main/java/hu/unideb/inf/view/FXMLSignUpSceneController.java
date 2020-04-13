@@ -158,7 +158,7 @@ public class FXMLSignUpSceneController implements Initializable {
                 pst.setString(3, emailText.getText().trim());
                 pst.setInt(4, genderComboBox.getSelectionModel().getSelectedIndex());
                 pst.setString(5, userNameText.getText().trim());
-                pst.setString(5, userNameText.getText().trim());
+               
                 String EncryptedPass = BasicFucntions.cryptWithMD5(passwordText.getText().trim());
                 if (EncryptedPass == null) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);

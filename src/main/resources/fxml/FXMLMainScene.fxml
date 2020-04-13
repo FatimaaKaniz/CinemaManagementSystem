@@ -28,17 +28,35 @@
       </Label>
       <TextField fx:id="userNameText" layoutX="220.0" layoutY="134.0" prefHeight="25.0" prefWidth="169.0" />
       <PasswordField fx:id="passwordText" layoutX="220.0" layoutY="189.0" prefHeight="25.0" prefWidth="169.0" />
-      <Button fx:id="loginbutton" layoutX="296.0" layoutY="248.0" mnemonicParsing="false" onMouseClicked="#loginButtonClicked" text="Login" />
-      <Button fx:id="exitButton" layoutX="354.0" layoutY="248.0" mnemonicParsing="false" onMouseClicked="#ExitButtonClicked" text="Exit" />
+      <Button fx:id="exitButton" layoutX="305.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#ExitButtonClicked" prefHeight="45.0" prefWidth="83.0" text="Exit">
+         <graphic>
+            <ImageView fitHeight="38.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Icons/application-exit.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font></Button>
       <ImageView fitHeight="51.0" fitWidth="460.0" layoutX="104.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Imges/coollogo_com-115371259.png" />
          </image>
       </ImageView>
-      <Label fx:id="noAccountButton" layoutX="51.0" layoutY="252.0" onMouseClicked="#NoAccountButtonCicked" style="-fx-text-fill: blue;" text="Don't have Account?">
+      <Label fx:id="noAccountButton" layoutX="14.0" layoutY="248.0" onMouseClicked="#NoAccountButtonCicked" style="-fx-text-fill: blue;" text="Don't have Account?">
          <font>
             <Font name="Times New Roman" size="18.0" />
          </font>
       </Label>
+      <Button fx:id="loginbutton" layoutX="216.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#loginButtonClicked" prefHeight="45.0" prefWidth="83.0" text="Login">
+         <graphic>
+            <ImageView fitHeight="38.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Icons/dialog-accept.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>
