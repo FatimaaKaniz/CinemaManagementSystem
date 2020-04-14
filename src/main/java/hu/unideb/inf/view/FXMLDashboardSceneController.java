@@ -137,6 +137,8 @@ public class FXMLDashboardSceneController implements Initializable {
         producerName.setCellValueFactory(new PropertyValueFactory("producerName"));
 
         Description.setCellValueFactory(new PropertyValueFactory("Description"));
+        
+        movieInfoTable.setItems(null);
         movieInfoTable.setItems(movieModel);
 
     }
@@ -144,7 +146,7 @@ public class FXMLDashboardSceneController implements Initializable {
 
     private ObservableList<Movie> GetMoviesInfo() throws SQLException {
 
-        String sql = "select SNo,Name,ProducerName,Description,Price,Image,LongDescription"
+        String sql = "select DISTINCT SNo,Name,ProducerName,Description,Price,Image,LongDescription"
                 + " from movies a inner join MovieInfo b where a.SNo = b.movieId "
                 + "and  date(b.movieTimings) >= datetime('now')";
         PreparedStatement pst;
