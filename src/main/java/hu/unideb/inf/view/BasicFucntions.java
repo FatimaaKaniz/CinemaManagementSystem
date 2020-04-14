@@ -21,24 +21,23 @@ public class BasicFucntions {
 
     private static MessageDigest md;
 
-   public static String cryptWithMD5(String pass){
-    try {
-        md = MessageDigest.getInstance("MD5");
-        byte[] passBytes = pass.getBytes();
-        md.reset();
-        byte[] digested = md.digest(passBytes);
-        StringBuilder sb = new StringBuilder();
-        for(int i=0;i<digested.length;i++){
-            sb.append(Integer.toHexString(0xff & digested[i]));
+    public static String cryptWithMD5(String pass) {
+        try {
+            md = MessageDigest.getInstance("MD5");
+            byte[] passBytes = pass.getBytes();
+            md.reset();
+            byte[] digested = md.digest(passBytes);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < digested.length; i++) {
+                sb.append(Integer.toHexString(0xff & digested[i]));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException ex) {
         }
-        return sb.toString();
-    } catch (NoSuchAlgorithmException ex) {
-    }
         return null;
 
+    }
 
-   }
-   
     static boolean isEmailValid(String email) {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"; //Regular Expresions
         return email.matches(regex);
@@ -54,14 +53,15 @@ public class BasicFucntions {
 
     public static EventHandler<WindowEvent> confirmCloseEventHandler = event -> {
         Alert alert = new Alert(
-                Alert.AlertType.CONFIRMATION,
-                "Are you sure you want to exit?"
-        );
+                Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Are you sure you want to exit?");
+
         alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
         if (!ButtonType.YES.equals(alert.showAndWait().get())) {
             event.consume();
         }
     };
+
     public static void Exit() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Current project is in progress");
@@ -74,5 +74,5 @@ public class BasicFucntions {
             }
         });
     }
-    
+
 }

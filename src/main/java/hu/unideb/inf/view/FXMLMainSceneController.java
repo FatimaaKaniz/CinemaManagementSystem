@@ -67,7 +67,6 @@ public class FXMLMainSceneController implements Initializable {
             String password = passwordText.getText().trim();
 
             String sql = "Select * from Customers where username=? and password=?";
-            boolean isOkay = true;
             Connection conn =null;
             try {
                 conn = MainApp.ConnectToDb();
@@ -116,14 +115,12 @@ public class FXMLMainSceneController implements Initializable {
                 alert.setContentText("Something Went Wrong. Sorry!!!");
                 alert.showAndWait();
                 System.out.println(e);
-                isOkay = false;
+                
 
             } finally {
                 if (pst != null) {
                     pst.close();
-                    if (!isOkay) {
-                        System.exit(0);
-                    }
+                   
                 }
 
             }

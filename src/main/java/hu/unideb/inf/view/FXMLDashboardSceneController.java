@@ -144,7 +144,7 @@ public class FXMLDashboardSceneController implements Initializable {
 
     private ObservableList<Movie> GetMoviesInfo() throws SQLException {
 
-        String sql = "select SNo,Name,'ProducerName',Description,Price,Image,LongDescription"
+        String sql = "select SNo,Name,ProducerName,Description,Price,Image,LongDescription"
                 + " from movies a inner join MovieInfo b where a.SNo = b.movieId "
                 + "and  date(b.movieTimings) >= datetime('now')";
         PreparedStatement pst;
