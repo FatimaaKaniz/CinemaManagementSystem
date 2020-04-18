@@ -10,15 +10,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="742.0" style="-fx-background-color: #e6f9ff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.view.FXMLSignUpSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="480.0" style="-fx-background-color: #e6f9ff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.view.FXMLPaymentsSceneController">
    <children>
-      <TextField fx:id="firstNameText" layoutX="181.0" layoutY="170.0" prefHeight="25.0" prefWidth="169.0" />
-      <TextField fx:id="lastNameText" layoutX="521.0" layoutY="170.0" prefHeight="25.0" prefWidth="169.0" />
-      <TextField fx:id="emailText" layoutX="181.0" layoutY="212.0" prefHeight="25.0" prefWidth="169.0" />
-      <ComboBox fx:id="genderComboBox" layoutX="521.0" layoutY="214.0" prefHeight="25.0" prefWidth="169.0" />
-      <TextField fx:id="userNameText" layoutX="181.0" layoutY="261.0" prefHeight="25.0" prefWidth="169.0" />
-      <PasswordField fx:id="passwordText" layoutX="521.0" layoutY="261.0" prefHeight="25.0" prefWidth="169.0" />
-      <Button fx:id="signUp" alignment="CENTER" layoutX="582.0" layoutY="311.0" mnemonicParsing="false" onMouseClicked="#signupButtonClicked" prefHeight="48.0" prefWidth="119.0" text="Signup" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+      <TextField fx:id="cardText" layoutX="44.0" layoutY="196.0" onKeyTyped="#CardKeyTyped" prefHeight="46.0" prefWidth="309.0" promptText="1234 1234 1234 1234">
+         <font>
+            <Font size="24.0" />
+         </font></TextField>
+      <TextField fx:id="NameText" layoutX="44.0" layoutY="363.0" prefHeight="46.0" prefWidth="270.0">
+         <font>
+            <Font size="24.0" />
+         </font></TextField>
+      <Button fx:id="signUp" alignment="CENTER" layoutX="296.0" layoutY="429.0" mnemonicParsing="false" onMouseClicked="#signupButtonClicked" prefHeight="48.0" prefWidth="154.0" text="Procceed" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
@@ -30,7 +32,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="exitButton" layoutX="451.0" layoutY="311.0" mnemonicParsing="false" onMouseClicked="#ExitButtonClicked" prefHeight="48.0" prefWidth="119.0" text="Exit">
+      <Button fx:id="exitButton" layoutX="43.0" layoutY="429.0" mnemonicParsing="false" onMouseClicked="#ExitButtonClicked" prefHeight="48.0" prefWidth="119.0" text="Exit">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
@@ -42,47 +44,32 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label layoutX="44.0" layoutY="116.0" text="REGISTER AN ACCOUNT" textAlignment="CENTER">
+      <Label layoutX="44.0" layoutY="116.0" text="Enter Payment Deatils" textAlignment="CENTER">
          <font>
             <Font name="Times New Roman" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="44.0" layoutY="259.0" text="Username" textAlignment="CENTER">
+      <Label layoutX="44.0" layoutY="331.0" text="Name On Card" textAlignment="CENTER">
          <font>
             <Font name="Times New Roman" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="377.0" layoutY="259.0" text="Password" textAlignment="CENTER">
-         <font>
-            <Font name="Times New Roman" size="24.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="78.0" fitWidth="437.0" layoutX="195.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="78.0" fitWidth="437.0" layoutX="85.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Imges/coollogo_com-115371259.png" />
          </image>
       </ImageView>
-      <Label layoutX="44.0" layoutY="166.0" text="First Name" textAlignment="CENTER">
+      <Label layoutX="44.0" layoutY="166.0" text="Card Number" textAlignment="CENTER">
          <font>
             <Font name="Times New Roman" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="377.0" layoutY="168.0" text="Last Name" textAlignment="CENTER">
+      <Label layoutX="44.0" layoutY="249.0" text="Expiry Date" textAlignment="CENTER">
          <font>
             <Font name="Times New Roman" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="44.0" layoutY="210.0" text="Email" textAlignment="CENTER">
-         <font>
-            <Font name="Times New Roman" size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="377.0" layoutY="212.0" text="Gender" textAlignment="CENTER">
-         <font>
-            <Font name="Times New Roman" size="24.0" />
-         </font>
-      </Label>
-      <Button fx:id="backButton" alignment="CENTER" graphicTextGap="5.0" layoutX="50.0" layoutY="311.0" mnemonicParsing="false" onMouseClicked="#backButtonClicked" prefHeight="48.0" prefWidth="105.0" text="Back">
+      <Button fx:id="backButton" alignment="CENTER" graphicTextGap="5.0" layoutX="170.0" layoutY="429.0" mnemonicParsing="false" onMouseClicked="#backButtonClicked" prefHeight="48.0" prefWidth="119.0" text="Back">
          <font>
             <Font name="Times New Roman Bold" size="18.0" />
          </font>
@@ -94,5 +81,16 @@
             </ImageView>
          </graphic>
       </Button>
+      <Label layoutX="371.0" layoutY="163.0" text="CVV" textAlignment="CENTER">
+         <font>
+            <Font name="Times New Roman" size="24.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="cvvText" layoutX="371.0" layoutY="193.0" onKeyTyped="#CVVKEYTyped" prefHeight="46.0" prefWidth="79.0" promptText="123">
+         <font>
+            <Font size="24.0" />
+         </font></PasswordField>
+      <ComboBox fx:id="monthCombo" layoutX="44.0" layoutY="289.0" prefHeight="26.0" prefWidth="161.0" promptText="Month" />
+      <ComboBox fx:id="yearCombo" layoutX="212.0" layoutY="289.0" prefHeight="26.0" prefWidth="99.0" promptText="Year" />
    </children>
 </AnchorPane>

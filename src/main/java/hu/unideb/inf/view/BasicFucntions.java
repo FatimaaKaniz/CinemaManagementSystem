@@ -66,6 +66,20 @@ public class BasicFucntions {
         }
     };
 
+    public static boolean isStringonlyName(String text) {
+
+        if(text.equals("")) return false;
+        for (int i = 0; i < text.length(); i++) {
+            char a = text.charAt(i);
+            if (!Character.isAlphabetic(a) && !Character.isWhitespace(a)) {
+                return false;
+
+            }
+        }
+
+        return true;
+    }
+    
     public static void Exit() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Current project is in progress");

@@ -5,6 +5,7 @@ package hu.unideb.inf.view;
 
 import hu.unideb.inf.MainApp;
 import hu.unideb.inf.Model.Cart;
+import hu.unideb.inf.Model.Data;
 import hu.unideb.inf.Model.Movie;
 import hu.unideb.inf.Model.MovieInfo;
 import java.io.FileInputStream;
@@ -27,9 +28,11 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -40,6 +43,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.skin.TableCellSkin;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -151,7 +155,7 @@ public class FXMLMovieInfoSceneController implements Initializable {
         thisWindow.setOnCloseRequest(e -> HideThisAndShowParent());
 
     }
-    private List<MovieInfo> MoviesInfo = new LinkedList<>();
+    
 
     private ObservableList<MovieInfo> GetMoviesInfo() throws SQLException, ParseException {
         String sql = "select serialNumber,TotalSeats,availableSeats,movieTimings from movieInfo where movieid =?"
@@ -173,7 +177,7 @@ public class FXMLMovieInfoSceneController implements Initializable {
                         d, movie.getSNo(), movie.getMovieName(),
                         movie.getProducerName(), movie.getDescription(), movie.getPrice(), movie.getImage(),
                         movie.getLongDescription());
-                MoviesInfo.add(m);
+                movieinfo.add(m);
             }
 
         } catch (SQLException e) {
@@ -189,7 +193,7 @@ public class FXMLMovieInfoSceneController implements Initializable {
             }
         }
 
-        return FXCollections.observableArrayList(MoviesInfo);
+        return FXCollections.observableArrayList(movieinfo);
     }
 
     private void HideThisAndShowParent() {
@@ -199,13 +203,13 @@ public class FXMLMovieInfoSceneController implements Initializable {
         prevWindow.show();
     }
 
+    private List<MovieInfo> movieinfo = new ArrayList<>();
     @FXML
     private void moveiInfoTableMouseClicked(MouseEvent e) {
-        if (e.getButton() == MouseButton.SECONDARY) {
+        if (e.getButton() == MouseButton.SECONDARY && movieInfoTable.getItems().size() > 0) {
              moveiInfotableMenu.show(movieInfoTable, e.getScreenX(), e.getScreenY());
         }
     }
-
 
     @FXML
     private void AddtoCartClicked(ActionEvent event) {
@@ -213,14 +217,14 @@ public class FXMLMovieInfoSceneController implements Initializable {
         int showId = selectedShow.getSerialNumber();
         int movieId = selectedShow.getSNo();
         boolean isFound = false;
-        for (Cart c : Cart.getCart()) {
-            if(c.getMovieId()== movieId && c.getShowid() == showId ){
-                c.setNumOfSeats(c.getNumOfSeats()+1);
-               isFound = true;
+        for (Cart c : Data.getCart()) {
+            if (c.getMovieId() == movieId && c.getShowid() == showId) {
+                c.setNumOfSeats(c.getNumOfSeats() + 1);
+                isFound = true;
             }
         }
-        if(!isFound){
-            Cart.addtoCart(new Cart(selectedShow.getMovieName(), selectedShow.getMovieTimings(), 1, movieId, showId));
+        if (!isFound) {
+            Data.addtoCart(new Cart(selectedShow.getMovieName(), selectedShow.getMovieTimings(), 1, movieId, showId,selectedShow.getPrice()));
         }
     }
 
@@ -235,13 +239,13 @@ public class FXMLMovieInfoSceneController implements Initializable {
         Scene scene = new Scene(fxmlFIle.load());
         Stage stage = new Stage();
         stage.setTitle("Cart Window");
-        stage.setOnCloseRequest(BasicFucntions.confirmCloseEventHandler);  
+        stage.setOnCloseRequest(BasicFucntions.confirmCloseEventHandler);
 
         FXMLCartSceneController controller = fxmlFIle.getController();
-        controller.getDasboard(prevWindow);
+        controller.setDasboard(prevWindow);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
-        ((Stage)(cartBUtton.getScene().getWindow())).close();
+        ((Stage) (cartBUtton.getScene().getWindow())).close();
     }
 }

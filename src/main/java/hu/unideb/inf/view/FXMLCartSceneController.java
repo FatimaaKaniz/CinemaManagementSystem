@@ -7,6 +7,8 @@ package hu.unideb.inf.view;
 
 import hu.unideb.inf.MainApp;
 import hu.unideb.inf.Model.Cart;
+import hu.unideb.inf.Model.Data;
+import hu.unideb.inf.Model.MovieInfo;
 import java.io.IOException;
 
 import java.net.URL;
@@ -20,11 +22,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -54,6 +59,12 @@ public class FXMLCartSceneController implements Initializable {
     private TableColumn<Cart, Integer> quantity;
     @FXML
     private Button movieBack;
+    @FXML
+    private Button paymnetsButton;
+    @FXML
+    private TextField totalPaymentButton;
+    @FXML
+    private TableColumn<Cart, Double> price;
 
     /**
      * Initializes the controller class.
@@ -105,18 +116,27 @@ public class FXMLCartSceneController implements Initializable {
     }
 
     private void GetDatandPopulate() {
+        double p =0;
                 movieInfoTable.setItems(null);
 
         ObservableList<Cart> c = null;
-        c = FXCollections.observableArrayList(Cart.getCart());
+        c = FXCollections.observableArrayList(Data.getCart());
         movieName.setCellValueFactory(new PropertyValueFactory("movieName"));
 
         show.setCellValueFactory(new PropertyValueFactory("show"));
 
         quantity.setCellValueFactory(new PropertyValueFactory("numOfSeats"));
+        this.price.setCellValueFactory(new PropertyValueFactory("price"));
 
         movieInfoTable.setItems(c);
-    }
+        for (Cart cart : c) {
+           
+                    p+= cart.getPrice();
+                
+            }
+           totalPaymentButton.setText("$ "+p);
+        }
+    
 
     @FXML
     private void ExitClicked(ActionEvent event) {
@@ -154,8 +174,30 @@ public class FXMLCartSceneController implements Initializable {
     }
 
     private Stage Dashboard;
-    void getDasboard(Stage prevWindow) {
+    void setDasboard(Stage prevWindow) {
         Dashboard=prevWindow;
+    }
+
+
+    @FXML
+    private void paymnetsMouseClicked(MouseEvent event) throws IOException {
+        if(movieInfoTable.getItems().isEmpty()){
+            Alert a = new Alert(Alert.AlertType.ERROR, "Cart is Empty", ButtonType.OK);
+            a.show();
+        }
+        else{
+            FXMLLoader fxmlFIle = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLPaymentsScene.fxml"));
+        Scene scene = new Scene(fxmlFIle.load());
+        Stage stage = new Stage();
+        stage.setTitle("Payment Gateway"); 
+        stage.setScene(scene);
+        stage.setResizable(false);
+        FXMLPaymentsSceneController controller = fxmlFIle.getController();
+        controller.setprevWindow((Stage)movieInfoTable.getScene().getWindow());
+        controller.setDashboard(Dashboard);
+        ((Stage)movieInfoTable.getScene().getWindow()).hide();
+        stage.show();
+        }
     }
 
 }

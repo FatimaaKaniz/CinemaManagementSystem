@@ -3,32 +3,33 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="294.0" prefWidth="439.0" style="-fx-background-color: #e6f9ff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.view.FXMLMainSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="391.0" prefWidth="758.0" style="-fx-background-color: #e6f9ff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.view.FXMLMainSceneController">
    <children>
-      <Label layoutX="51.0" layoutY="96.0" text="Enter your credentials to continue" textAlignment="CENTER">
+      <Label layoutX="104.0" layoutY="116.0" prefHeight="26.0" prefWidth="169.0" text="Customer Login" textAlignment="CENTER">
          <font>
-            <Font name="Times New Roman" size="18.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="65.0" layoutY="131.0" text="Username" textAlignment="CENTER">
-         <font>
-            <Font name="Times New Roman" size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="65.0" layoutY="187.0" text="Password" textAlignment="CENTER">
+      <Label layoutX="28.0" layoutY="169.0" text="Username" textAlignment="CENTER">
          <font>
             <Font name="Times New Roman" size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="userNameText" layoutX="220.0" layoutY="134.0" prefHeight="25.0" prefWidth="169.0" />
-      <PasswordField fx:id="passwordText" layoutX="220.0" layoutY="189.0" prefHeight="25.0" prefWidth="169.0" />
-      <Button fx:id="exitButton" layoutX="305.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#ExitButtonClicked" prefHeight="45.0" prefWidth="83.0" text="Exit">
+      <Label layoutX="28.0" layoutY="225.0" text="Password" textAlignment="CENTER">
+         <font>
+            <Font name="Times New Roman" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="userNameText" layoutX="183.0" layoutY="172.0" prefHeight="25.0" prefWidth="169.0" />
+      <PasswordField fx:id="passwordText" layoutX="183.0" layoutY="227.0" prefHeight="25.0" prefWidth="169.0" />
+      <Button fx:id="exitButton" layoutX="661.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#ExitButtonClicked" prefHeight="45.0" prefWidth="83.0" text="Exit">
          <graphic>
             <ImageView fitHeight="38.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -39,17 +40,44 @@
          <font>
             <Font name="Times New Roman" size="14.0" />
          </font></Button>
-      <ImageView fitHeight="51.0" fitWidth="460.0" layoutX="104.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="104.0" fitWidth="453.0" layoutX="162.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Imges/coollogo_com-115371259.png" />
          </image>
       </ImageView>
-      <Label fx:id="noAccountButton" layoutX="14.0" layoutY="248.0" onMouseClicked="#NoAccountButtonCicked" style="-fx-text-fill: blue;" text="Don't have Account?">
+      <Label fx:id="noAccountButton" layoutX="90.0" layoutY="258.0" onMouseClicked="#NoAccountButtonCicked" style="-fx-text-fill: blue;" text="Don't have Account?">
          <font>
             <Font name="Times New Roman" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="loginbutton" layoutX="216.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#loginButtonClicked" prefHeight="45.0" prefWidth="83.0" text="Login">
+      <Button fx:id="loginbutton" layoutX="256.0" layoutY="313.0" mnemonicParsing="false" onMouseClicked="#loginButtonClicked" prefHeight="45.0" prefWidth="96.0" text="Login">
+         <graphic>
+            <ImageView fitHeight="38.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Icons/dialog-accept.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Separator layoutX="387.0" layoutY="121.0" orientation="VERTICAL" prefHeight="248.0" prefWidth="41.0" />
+      <Label layoutX="492.0" layoutY="106.0" prefHeight="26.0" prefWidth="169.0" text="Admin Login" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="416.0" layoutY="159.0" text="Username" textAlignment="CENTER">
+         <font>
+            <Font name="Times New Roman" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="416.0" layoutY="215.0" text="Password" textAlignment="CENTER">
+         <font>
+            <Font name="Times New Roman" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="userNameText1" layoutX="571.0" layoutY="162.0" prefHeight="25.0" prefWidth="169.0" />
+      <PasswordField fx:id="passwordText1" layoutX="571.0" layoutY="217.0" prefHeight="25.0" prefWidth="169.0" />
+      <Button fx:id="loginbutton1" layoutX="644.0" layoutY="303.0" mnemonicParsing="false" onMouseClicked="#loginButtonClicked" prefHeight="45.0" prefWidth="96.0" text="Login">
          <graphic>
             <ImageView fitHeight="38.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>

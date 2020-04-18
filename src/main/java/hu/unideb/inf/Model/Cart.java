@@ -24,17 +24,13 @@ public class Cart {
     private int numOfSeats;
     private int MovieId;
     private int Showid;
+    private double unitPrice;
+    
+    public double getPrice(){
+        return numOfSeats* unitPrice;
+    }
     
     
-    private static List<Cart> cart = new ArrayList<>();
-
-    public static void addtoCart(Cart c) {
-        cart.add(c);
-    }
-
-    public static List<Cart> getCart() {
-        return cart;
-    }
     
  
 

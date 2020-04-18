@@ -190,7 +190,7 @@ public class FXMLDashboardSceneController implements Initializable {
 
         FXMLCartSceneController controller = fxmlFIle.getController();
         Stage thisWindow =(Stage) movieInfoTable.getScene().getWindow();
-        controller.getDasboard(thisWindow);
+        controller.setDasboard(thisWindow);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
