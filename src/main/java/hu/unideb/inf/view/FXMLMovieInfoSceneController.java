@@ -4,10 +4,12 @@
 package hu.unideb.inf.view;
 
 import hu.unideb.inf.MainApp;
+import hu.unideb.inf.Model.Cart;
 import hu.unideb.inf.Model.Movie;
 import hu.unideb.inf.Model.MovieInfo;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.Date;
@@ -16,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -25,10 +28,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -49,6 +55,10 @@ public class FXMLMovieInfoSceneController implements Initializable {
     private MenuItem AddtoCardButton;
     @FXML
     private ContextMenu moveiInfotableMenu;
+    @FXML
+    private MenuItem MenubackButton;
+    @FXML
+    private Label cartBUtton;
 
     public void setPreviousWindow(Window previousWIndow) {
         this.prevWindow = (Stage) previousWIndow;
@@ -196,7 +206,42 @@ public class FXMLMovieInfoSceneController implements Initializable {
         }
     }
 
+
     @FXML
     private void AddtoCartClicked(ActionEvent event) {
+        MovieInfo selectedShow = movieInfoTable.getSelectionModel().getSelectedItem();
+        int showId = selectedShow.getSerialNumber();
+        int movieId = selectedShow.getSNo();
+        boolean isFound = false;
+        for (Cart c : Cart.getCart()) {
+            if(c.getMovieId()== movieId && c.getShowid() == showId ){
+                c.setNumOfSeats(c.getNumOfSeats()+1);
+               isFound = true;
+            }
+        }
+        if(!isFound){
+            Cart.addtoCart(new Cart(selectedShow.getMovieName(), selectedShow.getMovieTimings(), 1, movieId, showId));
+        }
+    }
+
+    @FXML
+    private void MenuCloseClicked(ActionEvent event) {
+        moveiInfotableMenu.hide();
+    }
+
+    @FXML
+    private void cartBUttonClicked(MouseEvent event) throws IOException {
+        FXMLLoader fxmlFIle = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLCartScene.fxml"));
+        Scene scene = new Scene(fxmlFIle.load());
+        Stage stage = new Stage();
+        stage.setTitle("Cart Window");
+        stage.setOnCloseRequest(BasicFucntions.confirmCloseEventHandler);  
+
+        FXMLCartSceneController controller = fxmlFIle.getController();
+        controller.getDasboard(prevWindow);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+        ((Stage)(cartBUtton.getScene().getWindow())).close();
     }
 }

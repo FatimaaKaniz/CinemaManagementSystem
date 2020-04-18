@@ -37,6 +37,8 @@ import javafx.stage.Stage;
 public class FXMLDashboardSceneController implements Initializable {
 
     private Customers m = new Customers();
+    @FXML
+    private MenuItem cartButton;
 
     public void setModel(Customers model) {
         this.m = model;
@@ -176,6 +178,23 @@ public class FXMLDashboardSceneController implements Initializable {
         }
 
         return FXCollections.observableArrayList(MoviesInfo);
+    }
+
+    @FXML
+    private void cartClicked(ActionEvent event) throws IOException {
+        FXMLLoader fxmlFIle = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLCartScene.fxml"));
+        Scene scene = new Scene(fxmlFIle.load());
+        Stage stage = new Stage();
+        stage.setTitle("Cart Window");
+        stage.setOnCloseRequest(BasicFucntions.confirmCloseEventHandler);  
+
+        FXMLCartSceneController controller = fxmlFIle.getController();
+        Stage thisWindow =(Stage) movieInfoTable.getScene().getWindow();
+        controller.getDasboard(thisWindow);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+        thisWindow.hide();
     }
 
 }

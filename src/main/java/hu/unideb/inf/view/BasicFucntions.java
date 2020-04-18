@@ -7,6 +7,7 @@ package hu.unideb.inf.view;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -60,6 +61,9 @@ public class BasicFucntions {
         if (!ButtonType.YES.equals(alert.showAndWait().get())) {
             event.consume();
         }
+        else{
+            Platform.exit();System.exit(0);
+        }
     };
 
     public static void Exit() {
@@ -69,8 +73,11 @@ public class BasicFucntions {
         alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
         alert.showAndWait().ifPresent(type -> {
             if (type == ButtonType.YES) {
+                Platform.exit();
                 System.exit(0);
+                
             } else {
+                
             }
         });
     }

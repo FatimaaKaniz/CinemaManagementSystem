@@ -44,8 +44,9 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem fx:id="ExitButtton" mnemonicParsing="false" onAction="#ExitClicked" text="Exit" />
+                  <MenuItem fx:id="cartButton" mnemonicParsing="false" onAction="#cartClicked" text="Cart" />
                   <MenuItem fx:id="logoutButton" mnemonicParsing="false" onAction="#logOutClicked" text="Logout" />
+              <MenuItem fx:id="ExitButtton" mnemonicParsing="false" onAction="#ExitClicked" text="Exit" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">

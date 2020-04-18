@@ -46,6 +46,8 @@
             <ContextMenu fx:id="moveiInfotableMenu">
               <items>
                 <MenuItem fx:id="AddtoCardButton" mnemonicParsing="false" onAction="#AddtoCartClicked" text="Add to Cart" />
+                <MenuItem fx:id="MenubackButton" mnemonicParsing="false" onAction="#MenuCloseClicked" text="back" />
+
               </items>
             </ContextMenu>
          </contextMenu>
@@ -79,5 +81,14 @@
          </font>
       </Label>
       <TextField fx:id="priceText" editable="false" layoutX="600.0" layoutY="131.0" prefHeight="26.0" prefWidth="110.0" />
+      <Label fx:id="cartBUtton" layoutX="627.0" layoutY="41.0" onMouseClicked="#cartBUttonClicked" prefHeight="57.0" prefWidth="81.0">
+         <graphic>
+            <ImageView fitHeight="89.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Imges/143-1434681_digicollect-cart-icon-png-download-submit-order-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Label>
    </children>
 </AnchorPane>
