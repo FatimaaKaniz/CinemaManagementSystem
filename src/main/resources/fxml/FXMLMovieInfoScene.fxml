@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -35,12 +36,19 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TableView fx:id="movieInfoTable" accessibleRole="IMAGE_VIEW" layoutX="15.0" layoutY="287.0" prefHeight="218.0" prefWidth="396.0">
+      <TableView fx:id="movieInfoTable" accessibleRole="IMAGE_VIEW" layoutX="15.0" layoutY="287.0" onMouseClicked="#moveiInfoTableMouseClicked" prefHeight="218.0" prefWidth="396.0">
         <columns>
           <TableColumn id="SNo" fx:id="serialNumber" prefWidth="50.0" text="S.No" />
           <TableColumn id="movieName" fx:id="movieTimings" prefWidth="209.0" text="Timings" />
             <TableColumn id="producerName" fx:id="availableSeats" prefWidth="137.0" text="Available Seats" />
         </columns>
+         <contextMenu>
+            <ContextMenu fx:id="moveiInfotableMenu">
+              <items>
+                <MenuItem fx:id="AddtoCardButton" mnemonicParsing="false" onAction="#AddtoCartClicked" text="Add to Cart" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
       </TableView>
       <ImageView fx:id="imageVIewer" fitHeight="381.0" fitWidth="278.0" layoutX="456.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -53,7 +61,7 @@
             <Font name="Ubuntu Light" size="18.0" />
          </font>
       </Text>
-      <Button fx:id="movieBack" layoutX="315.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#movieBackMouseClicked" prefHeight="40.0" prefWidth="96.0" text="Back">
+      <Button fx:id="movieBack" layoutX="301.0" layoutY="509.0" mnemonicParsing="false" onMouseClicked="#movieBackMouseClicked" prefHeight="42.0" prefWidth="110.0" text="Back">
          <font>
             <Font size="18.0" />
          </font>

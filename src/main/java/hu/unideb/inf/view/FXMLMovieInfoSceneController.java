@@ -28,6 +28,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -35,6 +36,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -42,16 +44,15 @@ import javafx.stage.Window;
 
 public class FXMLMovieInfoSceneController implements Initializable {
 
-    private Stage prevWindow ;
-    public void setPreviousWindow(Window previousWIndow) {
-         this.prevWindow = (Stage)previousWIndow;
-   }
-    
-    @FXML // ResourceBundle that was given to the FXMLLoader
-    private ResourceBundle resources;
+    private Stage prevWindow;
+    @FXML
+    private MenuItem AddtoCardButton;
+    @FXML
+    private ContextMenu moveiInfotableMenu;
 
-    @FXML // URL location of the FXML file that was given to the FXMLLoader
-    private URL location;
+    public void setPreviousWindow(Window previousWIndow) {
+        this.prevWindow = (Stage) previousWIndow;
+    }
 
     @FXML // fx:id="exitButton"
     private MenuItem exitButton; // Value injected by FXMLLoader
@@ -107,7 +108,7 @@ public class FXMLMovieInfoSceneController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-      
+
     }
 
     private void PopulateDataIntoTableVIew() {
@@ -128,7 +129,6 @@ public class FXMLMovieInfoSceneController implements Initializable {
         movieInfoTable.setItems(movieModel);
     }
 
-    @FXML
     void initialize() throws FileNotFoundException {
         priceText.setText("HUF " + movie.getPrice());
         descriptionLabel.setText(movie.getLongDescription());
@@ -137,7 +137,7 @@ public class FXMLMovieInfoSceneController implements Initializable {
 
         imageVIewer.setImage(image);
         PopulateDataIntoTableVIew();
-          Stage thisWindow = (Stage) movieBack.getScene().getWindow(); 
+        Stage thisWindow = (Stage) movieBack.getScene().getWindow();
         thisWindow.setOnCloseRequest(e -> HideThisAndShowParent());
 
     }
@@ -158,11 +158,11 @@ public class FXMLMovieInfoSceneController implements Initializable {
             while (rs.next()) {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
                 Date d = (Date) dateFormat.parse(rs.getString(4));
-                
+
                 MovieInfo m = new MovieInfo(rs.getInt(1), rs.getInt(2), rs.getInt(3),
                         d, movie.getSNo(), movie.getMovieName(),
-                         movie.getProducerName(), movie.getDescription(), movie.getPrice(), movie.getImage(),
-                         movie.getLongDescription());
+                        movie.getProducerName(), movie.getDescription(), movie.getPrice(), movie.getImage(),
+                        movie.getLongDescription());
                 MoviesInfo.add(m);
             }
 
@@ -170,7 +170,7 @@ public class FXMLMovieInfoSceneController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setContentText("Something Went Wrong. Sorry!!!");
-           
+
             alert.showAndWait();
 
         } finally {
@@ -181,10 +181,22 @@ public class FXMLMovieInfoSceneController implements Initializable {
 
         return FXCollections.observableArrayList(MoviesInfo);
     }
+
     private void HideThisAndShowParent() {
-      Stage thisWindow = (Stage) movieBack.getScene().getWindow();
-       thisWindow.close();
-       prevWindow.setResizable(false);
-       prevWindow.show();
+        Stage thisWindow = (Stage) movieBack.getScene().getWindow();
+        thisWindow.close();
+        prevWindow.setResizable(false);
+        prevWindow.show();
+    }
+
+    @FXML
+    private void moveiInfoTableMouseClicked(MouseEvent e) {
+        if (e.getButton() == MouseButton.SECONDARY) {
+             moveiInfotableMenu.show(movieInfoTable, e.getScreenX(), e.getScreenY());
+        }
+    }
+
+    @FXML
+    private void AddtoCartClicked(ActionEvent event) {
     }
 }
