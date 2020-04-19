@@ -2,6 +2,7 @@ package hu.unideb.inf.view;
 
 import hu.unideb.inf.MainApp;
 import hu.unideb.inf.Model.Customers;
+import hu.unideb.inf.Model.Data;
 import hu.unideb.inf.Model.Users;
 import java.io.IOException;
 import java.net.URL;
@@ -98,16 +99,15 @@ public class FXMLMainSceneController implements Initializable {
                     Customers loggedInCust = new Customers(rs.getString("firstName"),
                             rs.getString("lastName"), rs.getString("email"),
                             rs.getInt("gender"), username, password);
-
+Data.setLoggedInCustomer(loggedInCust);
                     FXMLLoader fxmlFile = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLDashboardScene.fxml"));
                     Stage stage = new Stage();
                     stage.setTitle("MoviesInfo");
                     stage.setScene(new Scene(fxmlFile.load()));
                     stage.setOnCloseRequest(BasicFucntions.confirmCloseEventHandler);   
                     Stage thisWin = (Stage) loginbutton.getScene().getWindow();
-                    FXMLDashboardSceneController dashboard = fxmlFile.getController();
-
-                    dashboard.setModel(loggedInCust);
+                    
+                    System.out.println(Data.getLoggedInCustomer().getEmail());
                     stage.setResizable(false);
                     stage.show();
                     thisWin.close();

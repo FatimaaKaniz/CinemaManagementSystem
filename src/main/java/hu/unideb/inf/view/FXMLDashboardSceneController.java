@@ -5,6 +5,7 @@ package hu.unideb.inf.view;
 
 import hu.unideb.inf.MainApp;
 import hu.unideb.inf.Model.Customers;
+import hu.unideb.inf.Model.Data;
 import hu.unideb.inf.Model.Movie;
 import java.io.IOException;
 import java.net.URL;
@@ -40,11 +41,7 @@ public class FXMLDashboardSceneController implements Initializable {
     @FXML
     private MenuItem cartButton;
 
-    public void setModel(Customers model) {
-        this.m = model;
-        custName.setText(m.getName());
-        custEmail.setText(m.getEmail());
-    }
+  
 
     @FXML
     private MenuItem logoutButton;
@@ -123,9 +120,16 @@ public class FXMLDashboardSceneController implements Initializable {
         BasicFucntions.Exit();
     }
 
+    @FXML
+    void initialize(){
+        
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+m= Data.getLoggedInCustomer();
+        System.out.println(m.getEmail());
+        custName.setText(m.getName());
+        custEmail.setText(m.getEmail());
         ObservableList<Movie> movieModel = null;
         try {
             String sql = "select DISTINCT SNo,Name,ProducerName,Description,Price,Image,LongDescription"

@@ -15,9 +15,18 @@ import java.util.List;
 public class Data {
     private static List<Cart> cart = new ArrayList<>();
    
+    private static Customers loggedInCustomer= new Customers();
     
     public static void addtoCart(Cart c) {
         cart.add(c);
+    }
+
+    public static Customers getLoggedInCustomer() {
+        return loggedInCustomer;
+    }
+
+    public static void setLoggedInCustomer(Customers loggedInCustomer) {
+        Data.loggedInCustomer = loggedInCustomer;
     }
 
     public static List<Cart> getCart() {

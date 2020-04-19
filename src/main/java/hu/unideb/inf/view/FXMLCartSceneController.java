@@ -195,6 +195,7 @@ public class FXMLCartSceneController implements Initializable {
         FXMLPaymentsSceneController controller = fxmlFIle.getController();
         controller.setprevWindow((Stage)movieInfoTable.getScene().getWindow());
         controller.setDashboard(Dashboard);
+        controller.setCart(Data.getCart());
         ((Stage)movieInfoTable.getScene().getWindow()).hide();
         stage.show();
         }

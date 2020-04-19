@@ -25,6 +25,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -162,17 +163,15 @@ public class FXMLUserDashboardSceneController implements Initializable {
     private TextField shortDescText;
 
     private JFXTreeTableView tableShows;
+    @FXML
+    private JFXButton passChnge;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        mainPane.setContent(dashboardPane);
-        moviesListPane.setVisible(false);
-        movieInfoPanel.setVisible(false);
-        showsPanel.setVisible(false);
-        NewShowPanel.setVisible(false);
+        
 
         UnaryOperator<TextFormatter.Change> filterPrice = change -> {
             String text = change.getText();
@@ -187,9 +186,10 @@ public class FXMLUserDashboardSceneController implements Initializable {
         priceText.setTextFormatter(textFormatter);
     }
 
-    void initialize() {
+    void initialize() throws SQLException {
         nameText.setText(loggedInUser.getName());
         emailText.setText(loggedInUser.getEmail());
+        ShowDashbaord();
     }
 
     @FXML
@@ -198,7 +198,7 @@ public class FXMLUserDashboardSceneController implements Initializable {
 
     private Users loggedInUser = new Users();
 
-    void setModel(Users loggedInuser) {
+    void setModel(Users loggedInuser) throws SQLException {
         this.loggedInUser = loggedInuser;
         initialize();
     }
@@ -325,13 +325,48 @@ public class FXMLUserDashboardSceneController implements Initializable {
         });
     }
 
-    private void ShowDashbaord() {
+    private void ShowDashbaord() throws SQLException {
         mainPane.setContent(dashboardPane);
         dashboardPane.setVisible(true);
         movieInfoPanel.setVisible(false);
         moviesListPane.setVisible(false);
         showsPanel.setVisible(false);
         NewShowPanel.setVisible(false);
+        PreparedStatement pst = null;
+        String sql = "Select count(*) from movies";
+        showCountLabel.setText(GetData("select count(*) from MovieInfo")+"");
+       moviesCountLabel.setText(GetData(sql)+"");
+       bookingsCountLabel.setText(GetData("select count (*) from Bookings")+"");
+       totalEarningCountLabel.setText("$ "+GetData("select ifnull(sum(totalPrice), 0) from Bookings"));
+    
+      // shows
+    }
+
+    private int GetData(String sql) throws SQLException {
+        PreparedStatement pst = null;
+        Connection conn =null;
+        try {
+            conn = MainApp.ConnectToDb();
+            
+            pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            return rs.getInt(1);
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Something Went Wrong. Sorry!!!");
+            alert.showAndWait();
+            System.out.println(e);
+            
+            
+        } finally {
+            if (pst != null) {
+                pst.close();
+                
+            }
+            
+        }
+        return 0;
     }
 
     private void ShowMOviePane() {
@@ -344,7 +379,7 @@ public class FXMLUserDashboardSceneController implements Initializable {
     }
 
     @FXML
-    private void SaveClicked(MouseEvent event) {
+    private void SaveClicked(MouseEvent event) throws SQLException {
         Movie m = new Movie();
         if (isValidated()) {
             if (isMovieBUpdate) {
@@ -540,7 +575,7 @@ public class FXMLUserDashboardSceneController implements Initializable {
     }
 
     @FXML
-    private void showDashbord(ActionEvent event) {
+    private void showDashbord(ActionEvent event) throws SQLException {
         ShowDashbaord();
     }
 
@@ -646,6 +681,10 @@ String date = "";
                 return false;
         }
         return true;
+    }
+
+    @FXML
+    private void passCHngeCLicked(MouseEvent event) {
     }
 
 }

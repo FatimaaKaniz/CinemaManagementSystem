@@ -5,11 +5,17 @@
  */
 package hu.unideb.inf.view;
 
+import hu.unideb.inf.MainApp;
+import hu.unideb.inf.Model.Cart;
 import hu.unideb.inf.Model.CreditCard;
 import hu.unideb.inf.Model.Data;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 import javafx.beans.value.ChangeListener;
@@ -106,12 +112,18 @@ public class FXMLPaymentsSceneController implements Initializable {
     }
 
     @FXML
-    private void signupButtonClicked(MouseEvent event) {
+    private void signupButtonClicked(MouseEvent event) throws SQLException {
         if (isValidated()) {
            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Confirmation");
-            alert.setContentText("Ticket Booked Successfull\nYour Ticket will be sent you by email with in 15 minutes");
+            alert.setContentText("Ticket Booked Successfull\nYour Ticket will be sent you by email"
+                    + "\nwith in 15 minutes");
             alert.showAndWait();
+          
+            for (Cart cart1 : Data.getCart()) {
+                PutBookingDatatoDB(cart1);
+            }
+            
            ((Stage)backButton.getScene().getWindow()).close();
            Data.resetCart();
         Dashbaord.show();
@@ -209,4 +221,47 @@ public class FXMLPaymentsSceneController implements Initializable {
         this.Dashbaord = Dashboard;
     }
 
-}
+    private List<Cart> cart = new ArrayList<Cart>();
+    void setCart(List<Cart> cart) {
+        this.cart=cart;
+    }
+
+    private boolean PutBookingDatatoDB(Cart cart) throws SQLException {
+
+        PreparedStatement pst=null;
+        String sql = "insert into Bookings (MovieInfoId,price,Quantity,totalPrice,username) VALUES (?,?,?,?,?)";
+            Connection conn = null;
+            try {
+                conn = MainApp.ConnectToDb();
+             pst= conn.prepareStatement(sql);
+                pst.setInt(1, cart.getShowid());
+                pst.setDouble(2, cart.getUnitPrice());
+                pst.setInt(3, cart.getNumOfSeats());
+                pst.setDouble(4, cart.getPrice());
+                pst.setString(5, Data.getLoggedInCustomer().getUsername());
+                
+               pst.executeUpdate();
+               pst = conn.prepareStatement("update MovieInfo set availableSeats = availableSeats -?  where serialNumber=?");
+               pst.setInt(1, cart.getNumOfSeats());
+                pst.setInt(2, cart.getShowid()); 
+                 pst.executeUpdate();
+               return true;
+
+            } catch (SQLException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Something Went Wrong. Sorry!!!");
+                e.printStackTrace();
+                alert.show();
+                return false;
+
+            } finally {
+                if (conn != null) {
+                    conn.close();
+                }
+            }
+
+        }
+    }
+
+
