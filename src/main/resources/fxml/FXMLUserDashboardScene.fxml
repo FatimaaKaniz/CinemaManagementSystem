@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
@@ -9,6 +13,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
@@ -27,7 +33,7 @@
    <children>
       <Pane layoutX="-2.0" prefHeight="145.0" prefWidth="1062.0" style="-fx-background-color: linear-gradient(to left,#795AF3 ,#3929E0);;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <JFXButton layoutX="1041.0" layoutY="95.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="163.0" ripplerFill="WHITE" style="-fx-background-color: #473E98;" text="EDIT PROFILE" textFill="WHITE">
+            <JFXButton fx:id="passChnge" layoutX="1041.0" layoutY="95.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#passCHngeCLicked" prefHeight="30.0" prefWidth="163.0" ripplerFill="WHITE" style="-fx-background-color: #473E98;" text="Change Password" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -67,7 +73,7 @@
                   <Insets left="50.0" />
                </padding>
             </JFXButton>
-            <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="43.0" prefWidth="252.0" ripplerFill="#bfadf8" text="Reliability" textFill="#5b5858">
+            <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#AddNewShowClicked" prefHeight="43.0" prefWidth="252.0" ripplerFill="#bfadf8" text="Add New Show" textFill="#5b5858">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -85,7 +91,7 @@
                   <Insets left="50.0" />
                </padding>
             </JFXButton>
-            <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="43.0" prefWidth="252.0" ripplerFill="#bfadf8" text="Projections" textFill="#5b5858">
+            <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#showDashbord" prefHeight="43.0" prefWidth="252.0" ripplerFill="#bfadf8" text="Dashboard" textFill="#5b5858">
                <font>
                   <Font size="13.0" />
                </font>
@@ -93,77 +99,6 @@
                   <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Icons/projections.png" />
-                     </image>
-                     <viewport>
-                        <Rectangle2D />
-                     </viewport>
-                  </ImageView>
-               </graphic>
-               <padding>
-                  <Insets left="50.0" />
-               </padding>
-            </JFXButton>
-            <Label prefHeight="30.0" prefWidth="252.0" text="ENTERPRISE" textFill="#171717">
-               <font>
-                  <Font size="13.0" />
-               </font>
-               <padding>
-                  <Insets left="40.0" />
-               </padding>
-            </Label>
-            <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="43.0" prefWidth="252.0" ripplerFill="#bfadf8" text="Sponsorships" textFill="#5b5858">
-               <font>
-                  <Font size="13.0" />
-               </font>
-               <graphic>
-                  <ImageView accessibleText="Project List" fitHeight="16.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Icons/icons8_Workflow_64px.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <padding>
-                  <Insets left="50.0" />
-               </padding>
-            </JFXButton>
-            <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="43.0" prefWidth="252.0" ripplerFill="#bfadf8" text="Mes Prices" textFill="#5b5858">
-               <font>
-                  <Font size="13.0" />
-               </font>
-               <graphic>
-                  <ImageView accessibleText="Project List" fitHeight="16.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Icons/icons8_US_Dollar_64px.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <padding>
-                  <Insets left="50.0" />
-               </padding>
-            </JFXButton>
-            <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="43.0" prefWidth="252.0" ripplerFill="#bfadf8" text="My Team" textFill="#5b5858">
-               <font>
-                  <Font size="13.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Icons/agencies.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <padding>
-                  <Insets left="50.0" />
-               </padding>
-            </JFXButton>
-            <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="43.0" prefWidth="252.0" ripplerFill="#bfadf8" text="My Agencies" textFill="#5b5858">
-               <font>
-                  <Font size="13.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Icons/icons8_Handshake_64px.png" />
                      </image>
                      <viewport>
                         <Rectangle2D />
@@ -290,7 +225,15 @@
          <Text fill="WHITE" layoutX="15.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 15;" text="All Films" wrappingWidth="256.8037519454956" />
          <Button fx:id="backButton" contentDisplay="TOP" graphicTextGap="0.0" layoutX="980.0" layoutY="-1.0" minHeight="21.0" mnemonicParsing="false" onAction="#backToPrevScene" prefHeight="34.0" prefWidth="48.0" style="-fx-background-color: none; -fx-label-padding: -10; -fx-font-size: 12;" text="Back" textAlignment="CENTER" textFill="#ebdfdf">
          <font>
-            <Font size="18.0" />
+            <Font size="24.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+               <Button fx:id="AddNewMovieButton" contentDisplay="TOP" graphicTextGap="0.0" layoutX="754.0" layoutY="-1.0" minHeight="21.0" mnemonicParsing="false" onAction="#AddNewMovieClicked" prefHeight="34.0" prefWidth="194.0" style="-fx-background-color: none; -fx-label-padding: -10; -fx-font-size: 12;" text="Add New Movie" textAlignment="CENTER" textFill="#ebdfdf">
+         <font>
+            <Font size="24.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -311,11 +254,16 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ImageView fx:id="movieImage" fitHeight="380.0" fitWidth="280.0" layoutX="4.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="movieImage" fitHeight="400.0" fitWidth="280.0" layoutX="5.0" layoutY="79.0" onMouseClicked="#ImageViewMouseClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Imges/coollogo_com.png" />
+               </image>
+            </ImageView>
             <ButtonBar layoutX="736.0" layoutY="385.0" prefHeight="67.0" prefWidth="280.0">
               <buttons>
-                <Button fx:id="saveMovieBUtton" mnemonicParsing="false" prefHeight="49.0" prefWidth="212.0" text="Save" onMouseClicked="#SaveClicked"/>
-                  <Button fx:id="deleteFilmButton" mnemonicParsing="false" prefHeight="48.0" text="DeleteMovie" onMouseClicked="#deleteClicked"/>
+                <Button fx:id="saveMovieBUtton" mnemonicParsing="false" onMouseClicked="#SaveClicked" prefHeight="49.0" prefWidth="212.0" text="Save" />
+                  <Button fx:id="deleteFilmButton" mnemonicParsing="false" onMouseClicked="#deleteClicked" prefHeight="48.0" text="Delete" />
+                  <Button fx:id="showsButton" mnemonicParsing="false" onMouseClicked="#ShowsClicked" prefHeight="49.0" prefWidth="212.0" text="Shows" />
               </buttons>
             </ButtonBar>
             <Label layoutX="296.0" layoutY="62.0" prefHeight="34.0" prefWidth="102.0" text="Name">
@@ -338,7 +286,7 @@
                   <Font size="24.0" />
                </font>
             </TextField>
-            <TextArea fx:id="longDescText" layoutX="748.0" layoutY="83.0" prefHeight="305.0" prefWidth="270.0" promptText="About" wrapText="true">
+            <TextArea fx:id="longDescText" layoutX="748.0" layoutY="83.0" prefHeight="230.0" prefWidth="270.0" promptText="About" wrapText="true">
                <font>
                   <Font size="18.0" />
                </font>
@@ -368,6 +316,84 @@
                   <Font size="24.0" />
                </font>
             </TextField>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="showsPanel" layoutX="260.0" layoutY="193.0" prefHeight="378.0" prefWidth="1044.0">
+         <children>
+            <MenuBar prefHeight="29.0" prefWidth="1042.0" style="-fx-background-color: #353238;" />
+            <Text fill="WHITE" layoutX="15.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 15;" text="Shows" wrappingWidth="256.8037519454956" />
+            <Button fx:id="backButton1" contentDisplay="TOP" graphicTextGap="0.0" layoutX="980.0" layoutY="-1.0" minHeight="21.0" mnemonicParsing="false" onAction="#backToPrevScene" prefHeight="34.0" prefWidth="48.0" style="-fx-background-color: none; -fx-label-padding: -10; -fx-font-size: 12;" text="Back" textAlignment="CENTER" textFill="#ebdfdf">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="AddNewShowButton" contentDisplay="TOP" graphicTextGap="0.0" layoutX="754.0" layoutY="-1.0" minHeight="21.0" mnemonicParsing="false" onAction="#AddNewShowClicked" prefHeight="34.0" prefWidth="194.0" style="-fx-background-color: none; -fx-label-padding: -10; -fx-font-size: 12;" text="Add New Show" textAlignment="CENTER" textFill="#ebdfdf">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <TableView fx:id="movieInfoTable" accessibleRole="IMAGE_VIEW" layoutX="-2.0" layoutY="28.0" onMouseClicked="#moveiInfoTableMouseClicked" prefHeight="475.0" prefWidth="1044.0">
+               <columns>
+                  <TableColumn id="SNo" fx:id="serialNumber" prefWidth="50.0" text="S.No" />
+                  <TableColumn id="movieName" fx:id="movieTimings" prefWidth="209.0" text="Timings" />
+                  <TableColumn id="producerName" fx:id="availableSeats" prefWidth="137.0" text="Available Seats" />
+               </columns>
+              
+            </TableView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="NewShowPanel" layoutX="245.0" layoutY="181.0" prefHeight="550.0" prefWidth="1060.0">
+         <children>
+            <MenuBar prefHeight="29.0" prefWidth="1042.0" style="-fx-background-color: #353238;" />
+            <Text fill="WHITE" layoutX="15.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 15;" text="Movie Info" wrappingWidth="256.8037519454956" />
+            <Button fx:id="backButtonmovieInfo1" contentDisplay="TOP" graphicTextGap="0.0" layoutX="980.0" layoutY="-1.0" minHeight="21.0" mnemonicParsing="false" onAction="#backToPrevScene" prefHeight="34.0" prefWidth="48.0" style="-fx-background-color: none; -fx-label-padding: -10; -fx-font-size: 12;" text="Back" textAlignment="CENTER" textFill="#ebdfdf">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <ButtonBar layoutX="655.0" layoutY="314.0" prefHeight="67.0" prefWidth="280.0">
+               <buttons>
+                  <Button fx:id="saveShowBUtton" mnemonicParsing="false" onMouseClicked="#SaveshowClicked" prefHeight="49.0" prefWidth="212.0" text="Save" />
+                  <Button fx:id="deleteSHowButton" mnemonicParsing="false" onMouseClicked="#deleteshowClicked" prefHeight="48.0" text="Delete" />
+               </buttons>
+            </ButtonBar>
+            <Label layoutX="192.0" layoutY="84.0" prefHeight="34.0" prefWidth="198.0" text="Date">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="191.0" layoutY="198.0" prefHeight="34.0" prefWidth="198.0" text="Time">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <JFXTimePicker fx:id="ShowTime" layoutX="191.0" layoutY="232.0" prefHeight="29.0" prefWidth="198.0" />
+            <JFXDatePicker fx:id="showDate" layoutX="191.0" layoutY="128.0" />
+            <JFXTextField fx:id="seatsText" layoutX="639.0" layoutY="122.0" onKeyTyped="#seatsKeyTyped" prefHeight="46.0" prefWidth="193.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </JFXTextField>
+            <Label layoutX="637.0" layoutY="89.0" prefHeight="34.0" prefWidth="198.0" text="Seats">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <JFXComboBox fx:id="ShowcomboBox" layoutX="639.0" layoutY="239.0" prefHeight="43.0" prefWidth="198.0" />
+            <Label layoutX="639.0" layoutY="198.0" prefHeight="34.0" prefWidth="198.0" text="Movie">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       

@@ -197,7 +197,7 @@ public class FXMLPaymentsSceneController implements Initializable {
 
     @FXML
     private void CVVKEYTyped(KeyEvent event) {
-        if (cvvText.getText().length() > 16) {
+        if (cvvText.getText().length() > 3) {
             int pos = cvvText.getCaretPosition();
             cvvText.setText(cvvText.getText(0, 3));
             cvvText.positionCaret(pos); //To reposition caret since setText sets it at the beginning by default

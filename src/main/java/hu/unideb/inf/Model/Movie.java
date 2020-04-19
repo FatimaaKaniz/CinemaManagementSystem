@@ -7,7 +7,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
+
 public class Movie {
     private int SNo;
     private String movieName;
@@ -32,7 +32,14 @@ public class Movie {
 
     public Movie() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
+
+    @Override
+    public String toString() {
+        return SNo+": "+movieName;
+    }
+    
 
     
     

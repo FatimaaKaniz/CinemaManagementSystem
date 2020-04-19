@@ -128,7 +128,9 @@ public class FXMLMovieInfoSceneController implements Initializable {
     private void PopulateDataIntoTableVIew() {
         ObservableList<MovieInfo> movieModel = null;
         try {
-            movieModel = GetMoviesInfo();
+            String sql = "select serialNumber,TotalSeats,availableSeats,movieTimings from movieInfo where movieid =?"
+                + "and date(movieTimings) >= datetime('now')";
+            movieModel = GetMoviesInfo(sql,movie.getSNo());
         } catch (SQLException ex) {
             Logger.getLogger(FXMLMovieInfoSceneController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
@@ -157,9 +159,8 @@ public class FXMLMovieInfoSceneController implements Initializable {
     }
     
 
-    private ObservableList<MovieInfo> GetMoviesInfo() throws SQLException, ParseException {
-        String sql = "select serialNumber,TotalSeats,availableSeats,movieTimings from movieInfo where movieid =?"
-                + "and date(movieTimings) >= datetime('now')";
+    public ObservableList<MovieInfo> GetMoviesInfo(String sql,int movie_id) throws SQLException, ParseException {
+        
 
         PreparedStatement pst = null;
         Connection conn = null;
@@ -167,7 +168,7 @@ public class FXMLMovieInfoSceneController implements Initializable {
             conn = MainApp.ConnectToDb();
 
             pst = conn.prepareStatement(sql);
-            pst.setInt(1, movie.getSNo());
+            pst.setInt(1, movie_id);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");

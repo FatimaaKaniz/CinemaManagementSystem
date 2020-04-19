@@ -128,7 +128,10 @@ public class FXMLDashboardSceneController implements Initializable {
 
         ObservableList<Movie> movieModel = null;
         try {
-            movieModel = GetMoviesInfo();
+            String sql = "select DISTINCT SNo,Name,ProducerName,Description,Price,Image,LongDescription"
+                + " from movies a  left outer join MovieInfo b where a.SNo = b.movieId "
+                + "and  date(b.movieTimings) >= datetime('now')";
+            movieModel = GetMoviesInfo(sql);
         } catch (SQLException ex) {
             Logger.getLogger(FXMLDashboardSceneController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -146,11 +149,9 @@ public class FXMLDashboardSceneController implements Initializable {
     }
     private List<Movie> MoviesInfo = new LinkedList<>();
 
-    public ObservableList<Movie> GetMoviesInfo() throws SQLException {
+    public ObservableList<Movie> GetMoviesInfo(String sql) throws SQLException {
 
-        String sql = "select DISTINCT SNo,Name,ProducerName,Description,Price,Image,LongDescription"
-                + " from movies a inner join MovieInfo b where a.SNo = b.movieId "
-                + "and  date(b.movieTimings) >= datetime('now')";
+        
         PreparedStatement pst;
         Connection conn = null;
         try {
