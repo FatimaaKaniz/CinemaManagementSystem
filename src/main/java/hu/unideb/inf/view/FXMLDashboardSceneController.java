@@ -146,7 +146,7 @@ public class FXMLDashboardSceneController implements Initializable {
     }
     private List<Movie> MoviesInfo = new LinkedList<>();
 
-    private ObservableList<Movie> GetMoviesInfo() throws SQLException {
+    public ObservableList<Movie> GetMoviesInfo() throws SQLException {
 
         String sql = "select DISTINCT SNo,Name,ProducerName,Description,Price,Image,LongDescription"
                 + " from movies a inner join MovieInfo b where a.SNo = b.movieId "

@@ -2,6 +2,7 @@ package hu.unideb.inf.view;
 
 import hu.unideb.inf.MainApp;
 import hu.unideb.inf.Model.Customers;
+import hu.unideb.inf.Model.Users;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -37,6 +38,14 @@ public class FXMLMainSceneController implements Initializable {
 
     private ResultSet rs = null;
     private PreparedStatement pst = null;
+    @FXML
+    private Label noAccountButton;
+    @FXML
+    private TextField userNameText1;
+    @FXML
+    private PasswordField passwordText1;
+    @FXML
+    private Button loginbutton1;
 
     @FXML
     void ExitButtonClicked(MouseEvent event) {
@@ -127,7 +136,7 @@ public class FXMLMainSceneController implements Initializable {
         }
     }
 
-
+    
     private boolean isValidated() {
         if ("".equals(userNameText.getText().trim())) {
             Alert alert = new Alert(AlertType.ERROR);
@@ -152,12 +161,103 @@ public class FXMLMainSceneController implements Initializable {
         return true;
     }
 
+
+    private boolean isValidated1() {
+        if ("".equals(userNameText1.getText().trim())) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Username is required");
+            alert.show();
+            userNameText1.requestFocus();
+            
+            
+            return false;
+        }
+        if ("".equals(passwordText1.getText().trim())) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Password is required");
+            alert.show();
+            
+            passwordText1.requestFocus();
+
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         
 
     }
-    @FXML
     void initialize(){
+    }
+
+    @FXML
+    private void loginButton1Clicked(MouseEvent event) throws SQLException, IOException {
+        if (isValidated1()) {
+            String username = userNameText1.getText().trim();
+            String password = passwordText1.getText().trim();
+
+            String sql = "Select * from users where username=? and password=?";
+            Connection conn =null;
+            try {
+                conn = MainApp.ConnectToDb();
+                
+                pst = conn.prepareStatement(sql);
+                pst.setString(1, username);
+               
+                String EncryptedPass =BasicFucntions.cryptWithMD5(password);
+                if(EncryptedPass==null){
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setContentText("Encryption Error");
+                    alert.show();
+                    return;
+                }
+                pst.setString(2, EncryptedPass);
+
+                rs = pst.executeQuery();
+                if (rs.next()) {
+                    Users loggedInuser = new Users(rs.getInt("userId"),
+                            rs.getString("name"),rs.getString("email"),username, password);
+
+                    FXMLLoader fxmlFile = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLUserDashboardScene.fxml"));
+                    Stage stage = new Stage();
+                    stage.setTitle("Dashboard");
+                    stage.setScene(new Scene(fxmlFile.load()));
+                    stage.setOnCloseRequest(BasicFucntions.confirmCloseEventHandler);   
+                    Stage thisWin = (Stage) loginbutton.getScene().getWindow();
+                    FXMLUserDashboardSceneController dashboard = fxmlFile.getController();
+
+                    dashboard.setModel(loggedInuser);
+                    stage.setResizable(false);
+                    stage.show();
+                    thisWin.close();
+                } else {
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Autentication Failed");
+                    alert.setContentText("Credentials are incorrect");
+                    alert.show();
+                }
+
+            } catch (SQLException e) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Something Went Wrong. Sorry!!!");
+                alert.showAndWait();
+                System.out.println(e);
+                
+
+            } finally {
+                if (pst != null) {
+                    pst.close();
+                   
+                }
+
+            }
+        
+        }
     }
 }
