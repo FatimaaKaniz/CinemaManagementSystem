@@ -12,6 +12,7 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -38,8 +39,42 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </JFXButton>
-            <Text fx:id="nameText" fill="WHITE" layoutX="1035.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 15;" text="All Films" wrappingWidth="256.8037519454956" />
-            <Text fx:id="emailText" fill="WHITE" layoutX="1035.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 15;" text="All Films" wrappingWidth="256.8037519454956" />
+            <Text fx:id="nameText" fill="WHITE" layoutX="1012.0" layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 15;" text="All Films" wrappingWidth="295.0" />
+            <Text fx:id="emailText" fill="WHITE" layoutX="1013.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 15;" text="All Films" wrappingWidth="294.9999999999999" />
+            <Pane fx:id="pswrdchnge" layoutX="1024.0" layoutY="126.0" prefHeight="181.0" prefWidth="207.0" style="-fx-background-color: linear-gradient(to left,#795AF3 ,#3929E0);">
+               <children>
+                  <Label layoutX="7.0" layoutY="5.0" text="New Password" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="psText" layoutX="3.0" layoutY="30.0" prefHeight="26.0" prefWidth="194.0" promptText="password" />
+                  <Label layoutX="8.0" layoutY="75.0" text="Confirm password" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="cnpsTEXT" layoutX="4.0" layoutY="100.0" prefHeight="26.0" prefWidth="194.0" promptText="password" />
+                  <Button fx:id="PSOkayBUtton" layoutX="156.0" layoutY="137.0" mnemonicParsing="false" onMouseClicked="#PSOKAYButtonCLicked">
+                     <graphic>
+                        <ImageView fitHeight="21.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Icons/dialog-accept.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="PACLOSEBUTTON" layoutX="114.0" layoutY="136.0" mnemonicParsing="false" onMouseClicked="#PSCLOSEBUTTONCLICKED" prefHeight="34.0" prefWidth="39.0">
+                     <graphic>
+                        <ImageView fitHeight="21.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Icons/cross.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </Pane>
          </children>
       </Pane>
       <VBox layoutX="-1.0" layoutY="145.0" prefHeight="438.0" prefWidth="252.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="146.0">

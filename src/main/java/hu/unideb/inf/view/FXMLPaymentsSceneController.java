@@ -142,7 +142,7 @@ public class FXMLPaymentsSceneController implements Initializable {
         preWindow.show();
     }
 
-  
+  @FXML
     void initialize() {
 
         Stage thisWindow = (Stage) backButton.getScene().getWindow();

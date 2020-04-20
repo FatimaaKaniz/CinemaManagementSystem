@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXTimePicker;
 import com.jfoenix.controls.JFXTreeTableRow;
 import com.jfoenix.controls.JFXTreeTableView;
 import hu.unideb.inf.MainApp;
+import hu.unideb.inf.Model.Data;
 import hu.unideb.inf.Model.Movie;
 import hu.unideb.inf.Model.MovieInfo;
 import hu.unideb.inf.Model.Users;
@@ -54,6 +55,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -68,6 +70,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -165,6 +168,16 @@ public class FXMLUserDashboardSceneController implements Initializable {
     private JFXTreeTableView tableShows;
     @FXML
     private JFXButton passChnge;
+    @FXML
+    private Pane pswrdchnge;
+    @FXML
+    private Button PSOkayBUtton;
+    @FXML
+    private Button PACLOSEBUTTON;
+    @FXML
+    private PasswordField psText;
+    @FXML
+    private PasswordField cnpsTEXT;
 
     /**
      * Initializes the controller class.
@@ -327,6 +340,8 @@ public class FXMLUserDashboardSceneController implements Initializable {
 
     private void ShowDashbaord() throws SQLException {
         mainPane.setContent(dashboardPane);
+        pswrdchnge.setVisible(false);
+        passChnge.setDisable(false);
         dashboardPane.setVisible(true);
         movieInfoPanel.setVisible(false);
         moviesListPane.setVisible(false);
@@ -685,6 +700,74 @@ String date = "";
 
     @FXML
     private void passCHngeCLicked(MouseEvent event) {
+        pswrdchnge.setVisible(true);
+        pswrdchnge.toFront();
+        passChnge.setDisable(true);
+        mainPane.toBack();
+    }
+
+    @FXML
+    private void PSOKAYButtonCLicked(MouseEvent event) {
+        if("".equals(psText.getText().trim()) || "".equals(cnpsTEXT.getText().trim())){
+            Alert a = new Alert(Alert.AlertType.ERROR, "Form Validation not successful", ButtonType.OK);
+                a.showAndWait();
+        }
+        else{
+            String password = psText.getText().trim();
+            String ps = cnpsTEXT.getText().trim();
+            if(ps.equals(password)){
+                String sql = "update users set password =? where username =?";
+            PreparedStatement pst = null;
+            Connection conn = null;
+            try {
+                conn = MainApp.ConnectToDb();
+                pst = conn.prepareStatement(sql);
+                  String EncryptedPass = BasicFucntions.cryptWithMD5(password);
+                if (EncryptedPass == null) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    
+                    alert.setContentText("Encryption Error");
+                    alert.show();
+                    return;
+                }
+                pst.setString(1, EncryptedPass);
+                pst.setString(2, Data.getLoggedInUser().getUsername());
+                
+                pst.executeUpdate();
+                Alert alertu = new Alert(Alert.AlertType.INFORMATION);
+               
+                alertu.setContentText("Password Changed Successfuly!!!");
+
+                alertu.showAndWait();
+                pswrdchnge.setVisible(false);
+        passChnge.setDisable(false);
+                        } catch (SQLException e) {
+                e.printStackTrace();
+                Alert alertu = new Alert(Alert.AlertType.ERROR);
+                alertu.setTitle("Error");
+                alertu.setContentText("Something Went Wrong. Sorry!!!");
+
+                alertu.showAndWait();
+                pswrdchnge.setVisible(false);
+        passChnge.setDisable(false);
+
+            } finally {
+                if (conn != null) {
+                    try {
+                        conn.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(FXMLUserDashboardSceneController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+    }
+    }
+
+    @FXML
+    private void PSCLOSEBUTTONCLICKED(MouseEvent event) {
+        pswrdchnge.setVisible(false);
+        passChnge.setDisable(false);
     }
 
 }

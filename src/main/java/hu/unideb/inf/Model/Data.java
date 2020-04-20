@@ -17,6 +17,8 @@ public class Data {
    
     private static Customers loggedInCustomer= new Customers();
     
+    private static Users loggedInUser = new Users();
+    
     public static void addtoCart(Cart c) {
         cart.add(c);
     }
@@ -35,6 +37,14 @@ public class Data {
 
     public static void resetCart() {
         cart = new ArrayList<>();
+    }
+
+    public static Users getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public static void setLoggedInUser(Users aLoggedInUser) {
+        loggedInUser = aLoggedInUser;
     }
     
 }
