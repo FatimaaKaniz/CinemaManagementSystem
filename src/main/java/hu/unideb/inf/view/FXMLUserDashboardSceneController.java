@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXTimePicker;
 import com.jfoenix.controls.JFXTreeTableRow;
 import com.jfoenix.controls.JFXTreeTableView;
 import hu.unideb.inf.MainApp;
+import hu.unideb.inf.Model.Customers;
 import hu.unideb.inf.Model.Data;
 import hu.unideb.inf.Model.Movie;
 import hu.unideb.inf.Model.MovieInfo;
@@ -48,7 +49,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -74,6 +77,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -168,6 +172,9 @@ public class FXMLUserDashboardSceneController implements Initializable {
     private JFXTreeTableView tableShows;
     @FXML
     private JFXButton passChnge;
+    
+    @FXML
+    private JFXButton logoutButton;
     @FXML
     private Pane pswrdchnge;
     @FXML
@@ -704,6 +711,22 @@ String date = "";
         pswrdchnge.toFront();
         passChnge.setDisable(true);
         mainPane.toBack();
+    }
+    
+    @FXML 
+    private void logoutClicked(MouseEvent e) throws IOException{
+             Stage thisStage = (Stage) logoutButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLMainScene.fxml"));
+        Stage stage = new Stage();
+        stage.setTitle("Login Window");
+        stage.setScene(new Scene(loader.load()));
+       stage.setOnCloseRequest(BasicFucntions.confirmCloseEventHandler); 
+       Data.setLoggedInUser(new Users());
+       Data.setLoggedInCustomer(new Customers());
+       Data.resetCart();
+        thisStage.close();
+        stage.setResizable(false);
+        stage.show();
     }
 
     @FXML
