@@ -300,14 +300,16 @@ public class FXMLUserDashboardSceneController implements Initializable {
     @FXML
     private void deleteClicked(MouseEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-
+int m=0;
         alert.setContentText("delete?");
         alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
         alert.showAndWait().ifPresent(type -> {
             if (type == ButtonType.YES) {
-                movies.stream().filter((movy) -> (movy.getSNo() == movie_id)).forEachOrdered((movy) -> {
+                
+                for (Movie movy : movies) {
+                    if(movy.getSNo()== movie_id)
                     movies.remove(movy);
-                });
+                }
                 String sql = "delete from Movies where sNo =?";
                 PreparedStatement pst;
                 Connection conn = null;
@@ -320,7 +322,7 @@ public class FXMLUserDashboardSceneController implements Initializable {
                     alert.setTitle("done");
                     alert.setContentText("MOvie Deleted!!!!");
 
-                    alert.showAndWait();
+                    alert.show();
                     ShowDashbaord();
                 } catch (SQLException e) {
                     Alert alertu = new Alert(Alert.AlertType.ERROR);
@@ -414,6 +416,7 @@ public class FXMLUserDashboardSceneController implements Initializable {
                         movy.setMovieName(movieName.getText().trim());
                         movy.setProducerName(producerNameText.getText().trim());
                         movy.setPrice(Integer.parseInt(priceText.getText().trim()));
+                        movy.setImage("src/main/resources/Imges/" + currentImageFile.getName());
                         m = movy;
                     }
                 }
@@ -547,9 +550,12 @@ public class FXMLUserDashboardSceneController implements Initializable {
             fc.setSelectedExtensionFilter(new ExtensionFilter("Image Files", "*.jpg", "*.png"));
             File f = fc.showOpenDialog(movieImage.getScene().getWindow());
 
+            
             if (f != null) {
                 currentImageFile = f;
+                try{
                 Files.copy(f.toPath(), new File("src/main/resources/Imges/" + f.getName()).toPath());
+                }catch(IOException n){}
                 movieImage.setImage(new Image(new FileInputStream(f)));
             }
         }
