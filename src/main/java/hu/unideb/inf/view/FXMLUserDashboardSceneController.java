@@ -31,8 +31,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -360,8 +358,8 @@ int m=0;
         String sql = "Select count(*) from movies";
         showCountLabel.setText(GetData("select count(*) from MovieInfo")+"");
        moviesCountLabel.setText(GetData(sql)+"");
-       bookingsCountLabel.setText(GetData("select count (*) from Bookings")+"");
-       totalEarningCountLabel.setText("$ "+GetData("select ifnull(sum(totalPrice), 0) from Bookings"));
+       bookingsCountLabel.setText(GetData("select ifnull(sum(quan), 0) from earning")+"");
+       totalEarningCountLabel.setText("$ "+GetData("select ifnull(sum(price), 0) from earning"));
     
       // shows
     }
@@ -439,9 +437,9 @@ int m=0;
                     Alert alertu = new Alert(Alert.AlertType.INFORMATION);
                     alertu.setTitle("info");
                     alertu.setContentText("Updated Successfully!!!");
-
+                    ClearMOvieFOrm();
                     alertu.showAndWait();
-
+                    
                     ShowDashbaord();
 
                 } catch (SQLException e) {
@@ -509,6 +507,15 @@ int m=0;
         }
     }
 
+    private void ClearMOvieFOrm() {
+        shortDescText.clear();
+        longDescText.clear();
+        movieImage.setImage(null);
+        movieName.clear();
+        producerNameText.clear();
+        priceText.clear();
+    }
+
     private boolean isValidated() {
         if ("".equals(movieName.getText())
                 || "".equals(producerNameText.getText().trim())
@@ -527,7 +534,7 @@ int m=0;
     }
 
     @FXML
-    private void AddNewMovieClicked(ActionEvent event) {
+    private void AddNewMovieClicked(ActionEvent event) throws FileNotFoundException {
         isMovieBUpdate = false;
         ShowMOviePane();
         movieName.clear();
@@ -537,6 +544,7 @@ int m=0;
         longDescText.clear();
         deleteFilmButton.setDisable(true);
         showsButton.setDisable(isMovieBUpdate);
+       movieImage.setImage(new Image(new FileInputStream(new File("src/main/resources/Imges/coollogo_com.png"))));
 
     }
 
@@ -655,9 +663,12 @@ int m=0;
                 Alert alertu = new Alert(Alert.AlertType.INFORMATION);
                 alertu.setTitle("info");
                 alertu.setContentText("Show Added Successfulu!!!");
-
+                
                 alertu.showAndWait();
-
+                ShowcomboBox.getSelectionModel().clearSelection();
+                seatsText.clear();
+                showDate.setValue(null);
+                ShowTime.setValue(null);
                 ShowDashbaord();
 
             } catch (SQLException e) {

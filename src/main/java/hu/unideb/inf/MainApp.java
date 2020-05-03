@@ -19,7 +19,7 @@ public class MainApp extends Application {
         Connection conn = null;
       try {
             Class.forName("org.sqlite.JDBC");
-            String dbURL = "jdbc:sqlite:CinemaMS.db";
+            String dbURL = "jdbc:sqlite:src/main/resources/db/CinemaMS.db";
              conn= DriverManager.getConnection(dbURL);
             
         } catch (ClassNotFoundException | SQLException ex) {
