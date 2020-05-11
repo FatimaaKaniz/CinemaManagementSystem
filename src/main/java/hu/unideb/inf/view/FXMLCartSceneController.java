@@ -84,15 +84,17 @@ public class FXMLCartSceneController implements Initializable {
                 
                 {
                     incrementButton.setOnAction(event -> {
-                        getTableRow().getItem().setNumOfSeats(getTableRow().getItem().getNumOfSeats()+1);
+                        Cart a = (Cart) getTableRow().getItem();
+                        int b = a.getNumOfSeats()+1;
+                        ((Cart)getTableRow().getItem()).setNumOfSeats(b);
                         
                         movieInfoTable.getItems().clear();
                         GetDatandPopulate();
                     });
                     
                     decrementButton.setOnAction(event -> {
-                        if(getTableRow().getItem().getNumOfSeats()-1 >0){
-                   getTableRow().getItem().setNumOfSeats(getTableRow().getItem().getNumOfSeats()-1);
+                        if(((Cart)getTableRow().getItem()).getNumOfSeats()-1 >0){
+                 ((Cart)  getTableRow().getItem()).setNumOfSeats(((Cart)getTableRow().getItem()).getNumOfSeats()-1);
                          movieInfoTable.getItems().clear();
                         GetDatandPopulate();
                         }
