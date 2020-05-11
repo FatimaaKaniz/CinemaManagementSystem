@@ -245,7 +245,6 @@ public class FXMLSignUpSceneController implements Initializable {
             alert.setTitle("Error");
             alert.setContentText("Something Went Wrong. Sorry!!!");
             alert.showAndWait();
-            System.out.println(e);
             isOkay = false;
 
         } finally {

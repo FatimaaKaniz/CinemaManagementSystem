@@ -17,6 +17,7 @@ import lombok.Setter;
  */
 @ToString
 @Getter
+@Setter
 public class MovieInfo extends Movie{
     private int serialNumber;
     private int TotalSeats;

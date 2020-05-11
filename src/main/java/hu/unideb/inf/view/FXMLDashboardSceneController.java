@@ -127,7 +127,6 @@ public class FXMLDashboardSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 m= Data.getLoggedInCustomer();
-        System.out.println(m.getEmail());
         custName.setText(m.getName());
         custEmail.setText(m.getEmail());
         ObservableList<Movie> movieModel = null;

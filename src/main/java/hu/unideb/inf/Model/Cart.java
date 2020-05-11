@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.*;
 
-
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cart {
@@ -27,54 +28,6 @@ public class Cart {
     
     public double getPrice(){
         return numOfSeats* unitPrice;
-    }
-
-    public String getMovieName() {
-        return movieName;
-    }
-
-    public void setMovieName(String movieName) {
-        this.movieName = movieName;
-    }
-
-    public String getShow() {
-        return show;
-    }
-
-    public void setShow(String show) {
-        this.show = show;
-    }
-
-    public int getNumOfSeats() {
-        return numOfSeats;
-    }
-
-    public void setNumOfSeats(int numOfSeats) {
-        this.numOfSeats = numOfSeats;
-    }
-
-    public int getMovieId() {
-        return MovieId;
-    }
-
-    public void setMovieId(int MovieId) {
-        this.MovieId = MovieId;
-    }
-
-    public int getShowid() {
-        return Showid;
-    }
-
-    public void setShowid(int Showid) {
-        this.Showid = Showid;
-    }
-
-    public double getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
     }
     
     

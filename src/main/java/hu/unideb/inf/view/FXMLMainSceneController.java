@@ -107,7 +107,6 @@ Data.setLoggedInCustomer(loggedInCust);
                     stage.setOnCloseRequest(BasicFucntions.confirmCloseEventHandler);   
                     Stage thisWin = (Stage) loginbutton.getScene().getWindow();
                     
-                    System.out.println(Data.getLoggedInCustomer().getEmail());
                     stage.setResizable(false);
                     stage.show();
                     thisWin.close();
@@ -123,7 +122,6 @@ Data.setLoggedInCustomer(loggedInCust);
                 alert.setTitle("Error");
                 alert.setContentText("Something Went Wrong. Sorry!!!");
                 alert.showAndWait();
-                System.out.println(e);
                 
 
             } finally {
@@ -247,7 +245,6 @@ Data.setLoggedInCustomer(loggedInCust);
                 alert.setTitle("Error");
                 alert.setContentText("Something Went Wrong. Sorry!!!");
                 alert.showAndWait();
-                System.out.println(e);
                 
 
             } finally {
