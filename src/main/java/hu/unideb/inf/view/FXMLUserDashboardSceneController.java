@@ -260,8 +260,7 @@ public class FXMLUserDashboardSceneController implements Initializable {
 
     private void addImage(int imageIndex, int j, int i) throws FileNotFoundException {
 
-        // System.out.println(id);
-        // System.out.println(fileList.get(i).getName());
+       
         Image image = new Image(new FileInputStream(movies.get(imageIndex).getImage()));
         ImageView imageViewer = new ImageView();
         imageViewer.setFitWidth(278);
@@ -378,7 +377,6 @@ int m=0;
             alert.setTitle("Error");
             alert.setContentText("Something Went Wrong. Sorry!!!");
             alert.showAndWait();
-            System.out.println(e);
             
             
         } finally {
