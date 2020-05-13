@@ -283,6 +283,7 @@ public class FXMLUserDashboardSceneController implements Initializable {
                     shortDescText.setText(movy.getDescription());
                     longDescText.setText(movy.getLongDescription());
                     try {
+                       
                         movieImage.setImage(new Image(new FileInputStream(movies.get(imageIndex).getImage())));
                     } catch (FileNotFoundException ex) {
                         Logger.getLogger(FXMLUserDashboardSceneController.class.getName()).log(Level.SEVERE, null, ex);
@@ -400,6 +401,7 @@ int m=0;
 
     @FXML
     private void SaveClicked(MouseEvent event) throws SQLException {
+      
         Movie m = new Movie();
         if (isValidated()) {
             if (isMovieBUpdate) {
@@ -412,7 +414,8 @@ int m=0;
                         movy.setMovieName(movieName.getText().trim());
                         movy.setProducerName(producerNameText.getText().trim());
                         movy.setPrice(Integer.parseInt(priceText.getText().trim()));
-                        movy.setImage("src/main/resources/Imges/" + currentImageFile.getName());
+                      if(currentImageFile != null){
+                        movy.setImage("src/main/resources/Imges/" + currentImageFile.getName());}
                         m = movy;
                     }
                 }
